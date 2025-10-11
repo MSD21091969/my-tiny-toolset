@@ -1,0 +1,24 @@
+{
+  "folders": [
+    {
+      "path": "C:\\Users\\Geurt\\Sam",
+      "name": "🔧 My Tiny Toolset"
+    }
+  ],
+  "settings": {
+    "python.analysis.extraPaths": [
+      "C:\\Users\\Geurt\\Sam"
+    ],
+    "files.exclude": {
+      "**/__pycache__": true,
+      "**/*.pyc": true,
+      "**/analysis_output": true
+    }
+  },
+  "extensions": {
+    "recommendations": [
+      "ms-python.python",
+      "ms-python.vscode-pylance"
+    ]
+  }
+}

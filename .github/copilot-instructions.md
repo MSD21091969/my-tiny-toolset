@@ -6,17 +6,19 @@ This project has access to custom analysis tools via the `my-tiny-toolset` repos
 
 ### Code Analyzer Tool
 
-**Location:** `~/my-tiny-toolset/code_analyzer.py` (clone from https://github.com/MSD21091969/my-tiny-toolset.git)
+**Repository:** https://github.com/MSD21091969/my-tiny-toolset.git
 
 **Purpose:** Analyze Python code to extract models, functions, and request/response mappings. Exports to CSV, Excel, and JSON.
+
+**Setup (once per machine):**
+```bash
+git clone https://github.com/MSD21091969/my-tiny-toolset.git ~/my-tiny-toolset
+```
 
 **Usage:**
 ```bash
 # From this project directory
 python ~/my-tiny-toolset/code_analyzer.py . --csv --json
-
-# Or use example wrapper
-python ~/my-tiny-toolset/example_usage.py
 ```
 
 **Capabilities:**

@@ -1,0 +1,25 @@
+{
+    "mcpServers": {
+        "pylance": {
+            "command": "python",
+            "args": [
+                "-m",
+                "mcp_pylance"
+            ],
+            "env": {
+                "PYTHONPATH": ".venv\\Scripts"
+            }
+        },
+        "python-dev": {
+            "command": "python",
+            "args": [
+                "-m",
+                "mcp_python_dev"
+            ],
+            "env": {
+                "PYTHONPATH": ".venv\\Scripts",
+                "VIRTUAL_ENV": ".venv"
+            }
+        }
+    }
+}

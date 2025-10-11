@@ -1,0 +1,20 @@
+# Code Analyzer Requirements
+
+# Core dependencies
+# None required - uses only Python standard library (ast, csv, json, dataclasses, pathlib)
+
+# Optional dependencies for enhanced features:
+
+# For Excel export (.xlsx files)
+openpyxl>=3.1.0
+
+# For more advanced Python parsing (if needed)
+# astor>=0.8.1
+
+# For web API analysis (optional)
+# fastapi>=0.100.0
+# flask>=2.3.0
+
+# For development
+# pytest>=7.4.0
+# black>=23.0.0

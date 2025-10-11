@@ -1,0 +1,41 @@
+{
+    "folders": [
+        {
+            "path": "C:\\Users\\Geurt\\Sam",
+            "name": "🔧 Code Analyzer (Tools)"
+        },
+        {
+            "path": "C:\\path\\to\\your-project-1",
+            "name": "Project 1"
+        },
+        {
+            "path": "C:\\path\\to\\your-project-2",
+            "name": "Project 2"
+        }
+    ],
+    "settings": {
+        "python.analysis.extraPaths": [
+            "C:\\Users\\Geurt\\Sam"
+        ],
+        "files.associations": {
+            "*.code-workspace": "jsonc"
+        }
+    },
+    "tasks": {
+        "version": "2.0.0",
+        "tasks": [
+            {
+                "label": "Analyze Active Project",
+                "type": "shell",
+                "command": "python",
+                "args": [
+                    "C:\\Users\\Geurt\\Sam\\code_analyzer.py",
+                    "${workspaceFolder}",
+                    "--csv",
+                    "--json"
+                ],
+                "problemMatcher": []
+            }
+        ]
+    }
+}

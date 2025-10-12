@@ -16,23 +16,49 @@ This repository contains my personal extended toolset and collections for develo
 
 ## Quick Start
 
-`powershell
+```powershell
 # Install dependencies
 pip install PyYAML openpyxl
 
 # Analyze any project
 cd your-fastapi-project
-python $env:USERPROFILE\my-tiny-toolset\tools\version_tracker.py . --version 1.0.0 --json --yaml
-`
+python $env:USERPROFILE\my-tiny-toolset\TOOLSET\version_tracker.py . --version 1.0.0 --json --yaml
+```
+
+## 🚀 Quick Deploy (For Occasional Use Elsewhere)
+
+**Need tools on a different workstation? One command gets you started:**
+
+```powershell
+# Download single tool instantly (5 seconds)
+iwr -useb https://raw.githubusercontent.com/MSD21091969/my-tiny-toolset/main/TOOLSET/version_tracker.py -o version_tracker.py
+
+# Use immediately
+python version_tracker.py . --version 1.0.0
+```
+
+**Or lightweight clone (no big collections):**
+```powershell
+# Quick 5MB download (no submodules)
+git clone --depth 1 --no-recurse-submodules https://github.com/MSD21091969/my-tiny-toolset.git temp-tools
+python temp-tools\TOOLSET\version_tracker.py . --version 1.0.0
+# Delete when done: rm -rf temp-tools
+```
+
+**Available tools for quick download:**
+- `version_tracker.py` - Version tracking + Git + Mapping
+- `code_analyzer.py` - Quick analysis  
+- `mapping_analyzer.py` - Model relationships
+- `excel_exporter.py` - Excel export
 
 ## Tools
 
 | Tool | Purpose | Output |
 |------|---------|--------|
-| 	ools/version_tracker.py | Version tracking + Git + Mapping | JSON, YAML, Manifests, HTML Report |
-| 	ools/code_analyzer.py | Quick analysis | CSV, JSON, Excel |
-| 	ools/mapping_analyzer.py | Model relationships | JSON, HTML Dashboard |
-| 	ools/excel_exporter.py | Excel export | XLSX (5 sheets) |
+| `TOOLSET/version_tracker.py` | Version tracking + Git + Mapping | JSON, YAML, Manifests, HTML Report |
+| `TOOLSET/code_analyzer.py` | Quick analysis | CSV, JSON, Excel |
+| `TOOLSET/mapping_analyzer.py` | Model relationships | JSON, HTML Dashboard |
+| `TOOLSET/excel_exporter.py` | Excel export | XLSX (5 sheets) |
 
 ## Extended Collections Usage
 

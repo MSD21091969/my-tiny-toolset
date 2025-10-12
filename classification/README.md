@@ -26,6 +26,16 @@ Reference formats showing proper analysis output structure:
 - `EXTERNAL_MODELS_REFERENCE.md` - API mapping documentation
 - `GRAND_CLASSIFICATION_PLAN.md` - Strategic classification approach
 
+### `/SYSTEM/` - Complete System Architecture
+Comprehensive system documentation and development workflows:
+- `architecture/` - Service overviews and system architecture docs
+- `guides/` - Request flow and token schema guides
+- `registry/` - Registry consolidation analysis and summaries
+- `specifications/` - MVP specifications and toolset coverage
+- `archive/` - Archived analytical toolset engineering documents
+- `BRANCH_DEVELOPMENT_PLAN.md` - Development planning methodology
+- `DEVELOPMENT_WORKFLOW.md` - Complete development workflow patterns
+
 ## 🔧 Integration with Modern Toolset
 
 ### Apply These Patterns:

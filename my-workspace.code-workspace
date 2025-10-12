@@ -1,13 +1,13 @@
-{
+﻿{
     "folders": [
         {
-            "path": "C:\\Users\\Geurt\\my-tiny-toolset",
-            "name": "🔧 My Tiny Toolset"
+            "path": ".",
+            "name": " My Tiny Toolset"
         }
     ],
     "settings": {
         "python.analysis.extraPaths": [
-            "C:\\Users\\Geurt\\my-tiny-toolset"
+            "${workspaceFolder}"
         ],
         "files.exclude": {
             "**/__pycache__": true,
@@ -28,11 +28,14 @@
         "version": "2.0.0",
         "tasks": [
             {
-                "label": "Code Analyzer: Full Analysis",
+                "label": "Code Analyzer: Quick Analysis",
                 "type": "shell",
                 "command": "python",
                 "args": [
-                    "${workspaceFolder}\\example_usage.py"
+                    "${workspaceFolder}\\TOOLSET\\code_analyzer.py",
+                    "${input:projectPath}",
+                    "--csv",
+                    "--json"
                 ],
                 "options": {
                     "cwd": "${workspaceFolder}"
@@ -45,12 +48,12 @@
                 "group": "build"
             },
             {
-                "label": "Code Analyzer: CSV Export",
+                "label": "Code Analyzer: CSV Only",
                 "type": "shell",
                 "command": "python",
                 "args": [
-                    "${workspaceFolder}\\code_analyzer.py",
-                    ".",
+                    "${workspaceFolder}\\TOOLSET\\code_analyzer.py",
+                    "${input:projectPath}",
                     "--csv"
                 ],
                 "problemMatcher": [],
@@ -60,12 +63,12 @@
                 "group": "build"
             },
             {
-                "label": "Code Analyzer: JSON Export",
+                "label": "Code Analyzer: JSON Only",
                 "type": "shell",
                 "command": "python",
                 "args": [
-                    "${workspaceFolder}\\code_analyzer.py",
-                    ".",
+                    "${workspaceFolder}\\TOOLSET\\code_analyzer.py",
+                    "${input:projectPath}",
                     "--json"
                 ],
                 "problemMatcher": [],
@@ -75,39 +78,65 @@
                 "group": "build"
             },
             {
-                "label": "Code Analyzer: Quick Summary",
+                "label": "Model Mapping Analyzer",
                 "type": "shell",
                 "command": "python",
                 "args": [
-                    "${workspaceFolder}\\code_analyzer.py",
-                    "."
-                ],
-                "problemMatcher": [],
-                "presentation": {
-                    "reveal": "always"
-                }
-            },
-            {
-                "label": "Analyze External Project",
-                "type": "shell",
-                "command": "python",
-                "args": [
-                    "${workspaceFolder}\\code_analyzer.py",
+                    "${workspaceFolder}\\TOOLSET\\mapping_analyzer.py",
                     "${input:projectPath}",
-                    "--csv",
                     "--json"
                 ],
                 "problemMatcher": [],
                 "presentation": {
                     "reveal": "always"
-                }
+                },
+                "group": "build"
+            },
+            {
+                "label": "Excel Export",
+                "type": "shell",
+                "command": "python",
+                "args": [
+                    "${workspaceFolder}\\TOOLSET\\excel_exporter.py",
+                    "${input:projectPath}"
+                ],
+                "problemMatcher": [],
+                "presentation": {
+                    "reveal": "always"
+                },
+                "group": "build"
+            },
+            {
+                "label": "Version Tracker",
+                "type": "shell",
+                "command": "python",
+                "args": [
+                    "${workspaceFolder}\\TOOLSET\\version_tracker.py",
+                    "${input:projectPath}",
+                    "--version",
+                    "${input:version}",
+                    "--json",
+                    "--yaml"
+                ],
+                "problemMatcher": [],
+                "presentation": {
+                    "reveal": "always"
+                },
+                "group": "build"
             }
         ],
         "inputs": [
             {
                 "id": "projectPath",
                 "description": "Path to project to analyze",
-                "type": "promptString"
+                "type": "promptString",
+                "default": "."
+            },
+            {
+                "id": "version",
+                "description": "Version number for tracking",
+                "type": "promptString",
+                "default": "1.0.0"
             }
         ]
     }

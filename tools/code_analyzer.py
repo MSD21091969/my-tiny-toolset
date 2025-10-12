@@ -1,4 +1,4 @@
-"""
+﻿"""
 Code Analyzer - Extract models, functions, and methods for analysis
 Supports exporting to CSV, Excel, and JSON formats
 """
@@ -388,7 +388,7 @@ class CodeAnalyzer:
                         }
                     )
 
-        print(f"✓ Exported to CSV files in '{output_dir}/'")
+        print(f"Ô£ô Exported to CSV files in '{output_dir}/'")
         print(f"  - {models_file.name} ({len(self.models)} models)")
         print(f"  - {fields_file.name} (model fields)")
         print(f"  - {functions_file.name} ({len(self.functions)} functions)")
@@ -420,7 +420,7 @@ class CodeAnalyzer:
         with open(output_file, "w", encoding="utf-8") as f:
             json.dump(data, f, indent=2)
 
-        print(f"✓ Exported to JSON: {output_file}")
+        print(f"Ô£ô Exported to JSON: {output_file}")
         return output_file
 
     def print_summary(self):
@@ -440,7 +440,7 @@ class CodeAnalyzer:
             print("\nTop Models:")
             for model in self.models[:5]:
                 print(
-                    f"  • {model.name} ({len(model.fields)} fields) - {model.file_path}"
+                    f"  ÔÇó {model.name} ({len(model.fields)} fields) - {model.file_path}"
                 )
 
         if self.mappings:
@@ -448,11 +448,11 @@ class CodeAnalyzer:
             for mapping in self.mappings[:5]:
                 method = mapping.http_method or "FUNC"
                 endpoint = mapping.endpoint or f"/{mapping.function_name}"
-                print(f"  • {method:6} {endpoint}")
+                print(f"  ÔÇó {method:6} {endpoint}")
                 if mapping.request_models:
-                    print(f"         ← {', '.join(mapping.request_models)}")
+                    print(f"         ÔåÉ {', '.join(mapping.request_models)}")
                 if mapping.response_models:
-                    print(f"         → {', '.join(mapping.response_models)}")
+                    print(f"         ÔåÆ {', '.join(mapping.response_models)}")
 
         print("=" * 60 + "\n")
 

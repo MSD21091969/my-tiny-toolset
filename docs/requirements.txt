@@ -1,7 +1,11 @@
-# Code Analyzer Requirements
+# My Tiny Toolset Requirements
 
 # Core dependencies
-# None required - uses only Python standard library (ast, csv, json, dataclasses, pathlib)
+# code_analyzer.py - uses only Python standard library (ast, csv, json, dataclasses, pathlib)
+# version_tracker.py - uses Python standard library + PyYAML
+
+# Required for version_tracker.py
+PyYAML>=6.0
 
 # Optional dependencies for enhanced features:
 

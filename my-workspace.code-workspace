@@ -1,24 +1,114 @@
 {
     "folders": [
         {
-            "path": "C:\\Users\\Geurt\\Sam",
+            "path": "C:\\Users\\Geurt\\my-tiny-toolset",
             "name": "🔧 My Tiny Toolset"
         }
     ],
     "settings": {
         "python.analysis.extraPaths": [
-            "C:\\Users\\Geurt\\Sam"
+            "C:\\Users\\Geurt\\my-tiny-toolset"
         ],
         "files.exclude": {
             "**/__pycache__": true,
             "**/*.pyc": true,
             "**/analysis_output": true
+        },
+        "files.associations": {
+            "*.code-workspace": "jsonc"
         }
     },
     "extensions": {
         "recommendations": [
             "ms-python.python",
             "ms-python.vscode-pylance"
+        ]
+    },
+    "tasks": {
+        "version": "2.0.0",
+        "tasks": [
+            {
+                "label": "Code Analyzer: Full Analysis",
+                "type": "shell",
+                "command": "python",
+                "args": [
+                    "${workspaceFolder}\\example_usage.py"
+                ],
+                "options": {
+                    "cwd": "${workspaceFolder}"
+                },
+                "problemMatcher": [],
+                "presentation": {
+                    "reveal": "always",
+                    "panel": "new"
+                },
+                "group": "build"
+            },
+            {
+                "label": "Code Analyzer: CSV Export",
+                "type": "shell",
+                "command": "python",
+                "args": [
+                    "${workspaceFolder}\\code_analyzer.py",
+                    ".",
+                    "--csv"
+                ],
+                "problemMatcher": [],
+                "presentation": {
+                    "reveal": "always"
+                },
+                "group": "build"
+            },
+            {
+                "label": "Code Analyzer: JSON Export",
+                "type": "shell",
+                "command": "python",
+                "args": [
+                    "${workspaceFolder}\\code_analyzer.py",
+                    ".",
+                    "--json"
+                ],
+                "problemMatcher": [],
+                "presentation": {
+                    "reveal": "always"
+                },
+                "group": "build"
+            },
+            {
+                "label": "Code Analyzer: Quick Summary",
+                "type": "shell",
+                "command": "python",
+                "args": [
+                    "${workspaceFolder}\\code_analyzer.py",
+                    "."
+                ],
+                "problemMatcher": [],
+                "presentation": {
+                    "reveal": "always"
+                }
+            },
+            {
+                "label": "Analyze External Project",
+                "type": "shell",
+                "command": "python",
+                "args": [
+                    "${workspaceFolder}\\code_analyzer.py",
+                    "${input:projectPath}",
+                    "--csv",
+                    "--json"
+                ],
+                "problemMatcher": [],
+                "presentation": {
+                    "reveal": "always"
+                }
+            }
+        ],
+        "inputs": [
+            {
+                "id": "projectPath",
+                "description": "Path to project to analyze",
+                "type": "promptString"
+            }
         ]
     }
 }

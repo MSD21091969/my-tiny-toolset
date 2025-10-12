@@ -1,4 +1,4 @@
-"""
+﻿"""
 Excel Exporter - Export code analysis to Excel with formatting
 Requires: openpyxl
 """
@@ -53,7 +53,7 @@ class ExcelExporter:
 
         # Save workbook
         self.wb.save(output_file)
-        print(f"✓ Exported to Excel: {output_file}")
+        print(f"Ô£ô Exported to Excel: {output_file}")
         return output_file
 
     def _create_summary_sheet(self):

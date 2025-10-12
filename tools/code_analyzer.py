@@ -1,4 +1,4 @@
-﻿"""
+"""
 Code Analyzer - Extract models, functions, and methods for analysis
 Supports exporting to CSV, Excel, and JSON formats
 """
@@ -58,11 +58,12 @@ class RequestResponseMapping:
 class CodeAnalyzer:
     """Analyze Python code to extract models and functions"""
 
-    def __init__(self, root_path: str):
+    def __init__(self, root_path: str, quiet: bool = False):
         self.root_path = Path(root_path)
         self.models: List[ModelInfo] = []
         self.functions: List[FunctionInfo] = []
         self.mappings: List[RequestResponseMapping] = []
+        self.quiet = quiet
 
     def analyze_directory(self, exclude_patterns: List[str] = None):
         """Analyze all Python files in the directory"""
@@ -82,13 +83,14 @@ class CodeAnalyzer:
     def analyze_file(self, file_path: Path):
         """Analyze a single Python file"""
         try:
-            with open(file_path, "r", encoding="utf-8") as f:
+            with open(file_path, "r", encoding="utf-8-sig") as f:
                 content = f.read()
 
             tree = ast.parse(content, filename=str(file_path))
             self._extract_from_ast(tree, file_path)
         except Exception as e:
-            print(f"Error analyzing {file_path}: {e}")
+            if not self.quiet:
+                print(f"Error analyzing {file_path}: {e}")
 
     def _extract_from_ast(self, tree: ast.AST, file_path: Path):
         """Extract information from AST"""
@@ -472,8 +474,9 @@ def main():
     )
     parser.add_argument("--csv", action="store_true", help="Export to CSV files")
     parser.add_argument("--json", action="store_true", help="Export to JSON file")
+    parser.add_argument("--quiet", action="store_true", help="Quiet mode - less verbose output")
     parser.add_argument(
-        "--output-dir", default="analysis_output", help="Output directory for CSV files"
+        "--output-dir", default="TOOLSET/analysis_output", help="Output directory for CSV files"
     )
     parser.add_argument(
         "--exclude",
@@ -484,20 +487,26 @@ def main():
 
     args = parser.parse_args()
 
-    analyzer = CodeAnalyzer(args.path)
+    analyzer = CodeAnalyzer(args.path, args.quiet)
 
-    print(f"Analyzing code in: {analyzer.root_path}")
+    if not args.quiet:
+        print(f"Analyzing code in: {analyzer.root_path}")
     analyzer.analyze_directory(exclude_patterns=args.exclude)
 
-    analyzer.print_summary()
+    if not args.quiet:
+        analyzer.print_summary()
 
     if args.csv:
         analyzer.export_to_csv(args.output_dir)
+        if not args.quiet:
+            print(f"✓ Exported to CSV files in '{args.output_dir}/'")
 
     if args.json:
         analyzer.export_to_json()
+        if not args.quiet:
+            print(f"✓ Exported to JSON: analysis_{datetime.now().strftime('%Y%m%d_%H%M%S')}.json")
 
-    if not args.csv and not args.json:
+    if not args.csv and not args.json and not args.quiet:
         print("Use --csv or --json to export results")
 
 

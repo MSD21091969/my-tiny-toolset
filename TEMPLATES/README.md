@@ -4,18 +4,9 @@
 
 ## Purpose
 
-Boilerplate code and integration templates for scaffolding projects and integrating the toolset into application repositories.
+External project scaffolding templates for creating new projects from boilerplate.
 
 ## Contents
-
-### [app-integration/](app-integration/)
-Templates for integrating my-tiny-toolset into application repositories:
-- `copilot-instructions-template.md` - AI assistant configuration template
-- `tasks-template.json` - VS Code tasks for running toolset commands
-- `gitignore-additions.txt` - Gitignore patterns for tool outputs
-- `README.md` - Integration instructions
-
-**See:** [app-integration/README.md](app-integration/README.md) for detailed usage
 
 ### [cookiecutter/](cookiecutter/)
 Project scaffolding templates (submodule):
@@ -31,27 +22,7 @@ Project scaffolding templates (submodule):
 git submodule update --remote cookiecutter
 ```
 
-## Template Categories
-
-### Application Integration
-- Toolset setup for new repositories
-- VS Code workspace configuration
-- CI/CD integration patterns
-
-### Project Scaffolding
-- Python package structure
-- FastAPI application boilerplate
-- Documentation site setup
-- Testing framework setup
-
 ## Usage
-
-### Integrate Toolset into Existing App
-```powershell
-# See app-integration/README.md for full instructions
-cd your-application
-# Copy and customize templates
-```
 
 ### Create New Project from Template
 ```powershell
@@ -59,20 +30,16 @@ cd your-application
 cookiecutter path/to/template
 ```
 
+## Note
+
+**For toolset integration templates**, see `TOOLSET/integration-templates/` - those are for integrating this toolset into existing applications, not for creating new projects.
+
 ## Maintenance
 
 **Update when:**
-- Adding new integration templates
-- Changing toolset integration process
-- Adding new project scaffolding templates
+- Adding new external template sources
 - Updating template documentation
-
-**Keep synchronized with:**
-- Tool requirements (update when tools change)
-- Best practices (update patterns as they evolve)
-- Application repo needs
+- Changing recommended templates
 
 **Date stamp:**
-- Update when adding/removing templates
-- Major template changes
-- Integration process updates
+- Update when adding/removing template sources

@@ -25,7 +25,7 @@ Domain expertise organized by area:
 #### [SYSTEM/](SYSTEM/)
 Complete system architecture and documentation:
 - **architecture/** - Service overviews, system architecture documents
-- **guides/** - Request flows, token schemas, integration patterns
+- **guides/** - Request flows, token schemas, integration patterns, best practices
 - **registry/** - Registry consolidation analysis and summaries
 - **specifications/** - MVP specs, toolset coverage documentation
 

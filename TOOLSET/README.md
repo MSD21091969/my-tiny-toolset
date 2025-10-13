@@ -2,15 +2,22 @@
 
 Analysis tools for Python code inspection.
 
-**Last updated:** 2025-10-13
+**Last updated:** 2025-10-14
 
 ## Contents
 
+### Analysis Tools
 - `version_tracker.py` - Full analysis with Git history
 - `code_analyzer.py` - Quick structure analysis
 - `mapping_analyzer.py` - Relationship mapping
 - `excel_exporter.py` - Excel report generation
 - `*.bat` - Windows command wrappers
+
+### Integration Templates
+- `integration-templates/` - Templates for integrating toolset into application repos
+  - `copilot-instructions-template.md`
+  - `tasks-template.json`
+  - `gitignore-additions.txt`
 
 ## Usage
 

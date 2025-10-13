@@ -173,8 +173,10 @@ class MappingAnalyzer:
             most_reused_count=most_reused_count
         )
     
-    def export_analysis(self, output_file: str):
+    def export_analysis(self, output_file: str = ".tool-outputs/mappings/mapping_analysis.json"):
         """Export mapping analysis to JSON"""
+        # Ensure output directory exists
+        Path(output_file).parent.mkdir(parents=True, exist_ok=True)
         data = {
             "stats": asdict(self.stats),
             "dependencies": {
@@ -238,8 +240,11 @@ class MappingAnalyzer:
         high_risk.sort(key=lambda x: x["usage_count"], reverse=True)
         return high_risk
     
-    def export_html_report(self, output_file: str):
+    def export_html_report(self, output_file: str = ".tool-outputs/mappings/mapping_dashboard.html"):
         """Export interactive HTML report"""
+        # Ensure output directory exists
+        Path(output_file).parent.mkdir(parents=True, exist_ok=True)
+        
         html = f"""<!DOCTYPE html>
 <html lang="en">
 <head>

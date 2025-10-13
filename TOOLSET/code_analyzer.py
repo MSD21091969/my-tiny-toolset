@@ -272,7 +272,7 @@ class CodeAnalyzer:
         except:
             return str(value)
 
-    def export_to_csv(self, output_dir: str = "analysis_output"):
+    def export_to_csv(self, output_dir: str = ".tool-outputs/analysis"):
         """Export analysis results to CSV files"""
         output_path = Path(output_dir)
         output_path.mkdir(exist_ok=True)
@@ -476,7 +476,7 @@ def main():
     parser.add_argument("--json", action="store_true", help="Export to JSON file")
     parser.add_argument("--quiet", action="store_true", help="Quiet mode - less verbose output")
     parser.add_argument(
-        "--output-dir", default="TOOLSET/analysis_output", help="Output directory for CSV files"
+        "--output-dir", default=".tool-outputs/analysis", help="Output directory for CSV files"
     )
     parser.add_argument(
         "--exclude",

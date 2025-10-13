@@ -36,7 +36,10 @@ class ExcelExporter:
 
         if output_file is None:
             timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-            output_file = f"code_analysis_{timestamp}.xlsx"
+            output_file = f".tool-outputs/excel/code_analysis_{timestamp}.xlsx"
+        
+        # Ensure output directory exists
+        Path(output_file).parent.mkdir(parents=True, exist_ok=True)
 
         self.wb = Workbook()
 
@@ -290,13 +293,18 @@ def export_to_excel(analyzer: CodeAnalyzer, output_file: str = None) -> str:
 
 
 if __name__ == "__main__":
-    # Example usage
+    import argparse
     from code_analyzer import CodeAnalyzer
-
-    analyzer = CodeAnalyzer(".")
-    analyzer.analyze_directory()
-
-    if EXCEL_AVAILABLE:
-        export_to_excel(analyzer)
-    else:
+    
+    parser = argparse.ArgumentParser(description="Export code analysis to Excel")
+    parser.add_argument("path", nargs="?", default=".", help="Root directory to analyze")
+    parser.add_argument("--output", "-o", help="Output Excel file path")
+    args = parser.parse_args()
+    
+    if not EXCEL_AVAILABLE:
         print("Excel export not available. Install openpyxl: pip install openpyxl")
+        exit(1)
+    
+    analyzer = CodeAnalyzer(args.path)
+    analyzer.analyze_directory()
+    export_to_excel(analyzer, args.output)

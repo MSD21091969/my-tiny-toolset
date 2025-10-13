@@ -37,44 +37,15 @@
 			"problemMatcher": []
 		},
 		{
-			"label": "Sync to Application Context",
-			"type": "shell",
-			"command": "powershell",
-			"args": [
-				"-Command",
-				"$outputPath = 'C:\\Users\\HP\\Desktop\\krabbel\\tool-outputs\\docs\\ai-context'; Copy-Item -Path 'FIELD_REFERENCES.md' -Destination \"$outputPath\\conceptual-patterns.md\" -Force -ErrorAction SilentlyContinue; Copy-Item -Path 'README.md' -Destination \"$outputPath\\toolset-overview.md\" -Force -ErrorAction SilentlyContinue; Write-Host 'AI context synced to application workspace'"
-			],
-			"group": "build",
-			"problemMatcher": []
-		},
-		{
-			"label": "Clean Large Submodules",
-			"type": "shell",
-			"command": "powershell",
-			"args": [
-				"-Command",
-				"$keep = @('CONFIGS/fastapi-configs', 'PROMPTS/awesome-prompts'); $all = git submodule status | ForEach-Object { ($_ -split '\\s+')[2] }; foreach ($sub in $all) { if ($sub -notin $keep) { Write-Host \"Removing $sub...\"; git submodule deinit -f $sub; Remove-Item -Recurse -Force $sub -ErrorAction SilentlyContinue } }"
-			],
-			"group": "build",
-			"problemMatcher": []
-		},
-		{
 			"label": "Toolset Health Check",
 			"type": "shell",
 			"command": "powershell",
 			"args": [
 				"-Command",
-				"Write-Host 'Toolset Status:' -ForegroundColor Cyan; Write-Host ''; Write-Host 'Tools:' -ForegroundColor Yellow; $tools = @('code_analyzer', 'mapping_analyzer', 'excel_exporter', 'version_tracker'); foreach ($tool in $tools) { if (Test-Path \"TOOLSET\\$tool.py\") { Write-Host \"✓ $tool.py\" -ForegroundColor Green } else { Write-Host \"❌ $tool.py\" -ForegroundColor Red } }; Write-Host ''; Write-Host 'Batch Wrappers:' -ForegroundColor Yellow; foreach ($tool in $tools) { if (Test-Path \"TOOLSET\\$tool.bat\") { Write-Host \"✓ $tool.bat\" -ForegroundColor Green } else { Write-Host \"❌ $tool.bat\" -ForegroundColor Red } }; Write-Host ''; Write-Host 'Key Collections:' -ForegroundColor Yellow; $collections = @('CONFIGS/fastapi-configs', 'PROMPTS/awesome-prompts'); foreach ($col in $collections) { if ((git submodule status $col 2>$null) -match '^\\s*[a-f0-9]') { Write-Host \"✓ $col\" -ForegroundColor Green } else { Write-Host \"❌ $col\" -ForegroundColor Red } }"
+				"Write-Host 'Toolset Status:' -ForegroundColor Cyan; Write-Host ''; Write-Host 'Tools:' -ForegroundColor Yellow; $tools = @('code_analyzer', 'mapping_analyzer', 'excel_exporter', 'version_tracker'); foreach ($tool in $tools) { if (Test-Path \"TOOLSET\\$tool.py\") { Write-Host \"✓ $tool.py\" -ForegroundColor Green } else { Write-Host \"❌ $tool.py\" -ForegroundColor Red } }; Write-Host ''; Write-Host 'Batch Wrappers:' -ForegroundColor Yellow; foreach ($tool in $tools) { if (Test-Path \"TOOLSET\\$tool.bat\") { Write-Host \"✓ $tool.bat\" -ForegroundColor Green } else { Write-Host \"❌ $tool.bat\" -ForegroundColor Red } }; Write-Host ''; Write-Host 'Key Collections:' -ForegroundColor Yellow; $collections = @('CONFIGS/fastapi-configs', 'PROMPTS/awesome-prompts'); foreach ($col in $collections) { if (Test-Path $col) { Write-Host \"✓ $col\" -ForegroundColor Green } else { Write-Host \"❌ $col\" -ForegroundColor Red } }"
 			],
 			"group": "test",
 			"problemMatcher": []
-		}
-	],
-	"inputs": [
-		{
-			"id": "toolName",
-			"type": "promptString",
-			"description": "Enter tool name to test"
 		}
 	]
 }

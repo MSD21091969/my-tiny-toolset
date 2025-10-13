@@ -527,7 +527,7 @@ class VersionTracker:
             print(f"Error comparing with previous version: {e}")
             return {}
     
-    def export_to_json(self, output_file: str = "version_analysis.json"):
+    def export_to_json(self, output_file: str = ".tool-outputs/analysis/version_analysis.json"):
         """Export complete analysis to JSON"""
         result = AnalysisResult(
             timestamp=datetime.now().isoformat(),
@@ -552,7 +552,7 @@ class VersionTracker:
         print(f"✓ Exported version analysis to: {output_file}")
         return output_file
     
-    def export_to_yaml(self, output_file: str = "api_versions.yaml"):
+    def export_to_yaml(self, output_file: str = ".tool-outputs/analysis/api_versions.yaml"):
         """Export to YAML for CI/CD integration"""
         data = {
             "version": self.project_version,
@@ -625,7 +625,7 @@ class VersionTracker:
         print(f"✓ Exported to YAML: {output_file}")
         return output_file
     
-    def export_per_file_manifest(self, output_dir: str = "manifests"):
+    def export_per_file_manifest(self, output_dir: str = ".tool-outputs/analysis/manifests"):
         """Export individual YAML manifest for each file"""
         output_path = Path(output_dir)
         output_path.mkdir(exist_ok=True)

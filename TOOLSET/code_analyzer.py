@@ -273,9 +273,9 @@ class CodeAnalyzer:
             return str(value)
 
     def export_to_csv(self, output_dir: str = ".tool-outputs/analysis"):
-        """Export analysis results to CSV files"""
+        """Export analysis data to CSV files"""
         output_path = Path(output_dir)
-        output_path.mkdir(exist_ok=True)
+        output_path.mkdir(parents=True, exist_ok=True)
 
         timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
 

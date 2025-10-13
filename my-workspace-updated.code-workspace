@@ -1,0 +1,145 @@
+{
+    "folders": [
+        {
+            "path": "C:\\Users\\HP\\my-tiny-toolset",
+            "name": "🔧 My Tiny Toolset - Extended Laboratory"
+        }
+    ],
+    "settings": {
+        "python.analysis.extraPaths": [
+            "C:\\Users\\HP\\my-tiny-toolset\\TOOLSET"
+        ],
+        "files.exclude": {
+            "**/__pycache__": true,
+            "**/*.pyc": true,
+            "**/analysis_output": true,
+            "**/version_analysis": true,
+            "**/.git/modules": true
+        },
+        "files.associations": {
+            "*.code-workspace": "jsonc"
+        }
+    },
+    "extensions": {
+        "recommendations": [
+            "ms-python.python",
+            "ms-python.vscode-pylance"
+        ]
+    },
+    "tasks": {
+        "version": "2.0.0",
+        "tasks": [
+            {
+                "label": "📊 Version Tracker: Full Analysis",
+                "type": "shell",
+                "command": "python",
+                "args": [
+                    "${workspaceFolder}\\TOOLSET\\version_tracker.py",
+                    "${input:targetPath}",
+                    "--version",
+                    "${input:projectVersion}",
+                    "--json",
+                    "--yaml",
+                    "--mapping"
+                ],
+                "options": {
+                    "cwd": "${workspaceFolder}"
+                },
+                "problemMatcher": [],
+                "presentation": {
+                    "reveal": "always",
+                    "panel": "new"
+                },
+                "group": "build"
+            },
+            {
+                "label": "🔍 Code Analyzer: Quick Analysis",
+                "type": "shell",
+                "command": "python",
+                "args": [
+                    "${workspaceFolder}\\TOOLSET\\code_analyzer.py",
+                    "${input:targetPath}",
+                    "--csv",
+                    "--json"
+                ],
+                "problemMatcher": [],
+                "presentation": {
+                    "reveal": "always"
+                },
+                "group": "build"
+            },
+            {
+                "label": "🗺️ Mapping Analyzer: Dependencies",
+                "type": "shell",
+                "command": "python",
+                "args": [
+                    "${workspaceFolder}\\TOOLSET\\mapping_analyzer.py",
+                    "${input:targetPath}"
+                ],
+                "problemMatcher": [],
+                "presentation": {
+                    "reveal": "always"
+                }
+            },
+            {
+                "label": "📈 Excel Export: Full Report",
+                "type": "shell",
+                "command": "python",
+                "args": [
+                    "${workspaceFolder}\\TOOLSET\\excel_exporter.py",
+                    "${input:targetPath}"
+                ],
+                "problemMatcher": [],
+                "presentation": {
+                    "reveal": "always"
+                }
+            },
+            {
+                "label": "🚀 Analyze Current Workspace",
+                "type": "shell",
+                "command": "python",
+                "args": [
+                    "${workspaceFolder}\\TOOLSET\\version_tracker.py",
+                    ".",
+                    "--version",
+                    "1.0.0",
+                    "--json",
+                    "--yaml"
+                ],
+                "problemMatcher": [],
+                "presentation": {
+                    "reveal": "always"
+                }
+            },
+            {
+                "label": "📥 Quick Deploy Tool",
+                "type": "shell",
+                "command": "iwr",
+                "args": [
+                    "-useb",
+                    "https://raw.githubusercontent.com/MSD21091969/my-tiny-toolset/main/TOOLSET/version_tracker.py",
+                    "-o",
+                    "version_tracker.py"
+                ],
+                "problemMatcher": [],
+                "presentation": {
+                    "reveal": "always"
+                }
+            }
+        ],
+        "inputs": [
+            {
+                "id": "targetPath",
+                "description": "Path to project to analyze",
+                "type": "promptString",
+                "default": "."
+            },
+            {
+                "id": "projectVersion",
+                "description": "Project version for analysis",
+                "type": "promptString",
+                "default": "1.0.0"
+            }
+        ]
+    }
+}

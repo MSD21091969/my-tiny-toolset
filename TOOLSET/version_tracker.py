@@ -770,8 +770,8 @@ def main():
     )
     parser.add_argument(
         "--output-dir",
-        default="version_analysis",
-        help="Output directory (default: version_analysis)"
+        default=".tool-outputs/analysis",
+        help="Output directory (default: .tool-outputs/analysis)"
     )
     parser.add_argument(
         "--exclude",

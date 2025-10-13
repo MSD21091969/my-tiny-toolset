@@ -398,11 +398,15 @@ class CodeAnalyzer:
 
         return output_path
 
-    def export_to_json(self, output_file: str = None):
+    def export_to_json(self, output_dir: str = ".tool-outputs/analysis", output_file: str = None):
         """Export analysis results to JSON"""
         if output_file is None:
             timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
             output_file = f"analysis_{timestamp}.json"
+        
+        output_path = Path(output_dir)
+        output_path.mkdir(parents=True, exist_ok=True)
+        output_file = output_path / output_file
 
         data = {
             "timestamp": datetime.now().isoformat(),
@@ -502,7 +506,7 @@ def main():
             print(f"✓ Exported to CSV files in '{args.output_dir}/'")
 
     if args.json:
-        analyzer.export_to_json()
+        analyzer.export_to_json(args.output_dir)
         if not args.quiet:
             print(f"✓ Exported to JSON: analysis_{datetime.now().strftime('%Y%m%d_%H%M%S')}.json")
 

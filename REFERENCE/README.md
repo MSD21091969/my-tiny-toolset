@@ -8,15 +8,14 @@ Consolidated knowledge repository covering science, engineering, architecture, b
 
 ## Contents
 
-### Master Index
-- **[INDEX.md](INDEX.md)** - Master navigation document with cross-references
-- **[USERREADME.md](USERREADME.md)** - Human-facing project overview (do not auto-update)
+### Core Documents
 - **[GRAND_CLASSIFICATION_PLAN.md](GRAND_CLASSIFICATION_PLAN.md)** - Classification methodology and framework
 
 ### Knowledge Areas
 
 #### [SUBJECTS/](SUBJECTS/)
 Domain expertise organized by area:
+- **[shared-patterns/](SUBJECTS/shared-patterns/)** - Reusable code patterns (Pydantic types, validators, utilities) ✅
 - **data-engineering/** - ETL patterns, schema evolution (planned)
 - **knowledge-graphs/** - RAG optimization, entity relationships (planned)
 - **api-design/** - Pydantic → OpenAPI workflows (planned)
@@ -46,30 +45,23 @@ Complete system architecture and documentation:
 
 ## Workflow
 
-1. **Research** → Explore in WORKSPACE/, take field notes
+1. **Research** → Explore in WORKSPACE/, take field notes in FIELDNOTES.md
 2. **Experiment** → Validate concepts in WORKSPACE/experiments/
 3. **Draft** → Structure findings in WORKSPACE/drafts/
 4. **Publish** → Move validated knowledge here to SUBJECTS/
-5. **Index** → Update INDEX.md with new references
+5. **Update** → Keep this README synchronized with folder structure
 
 ## Maintenance
 
-**Update INDEX.md when:**
+**Update this README when:**
 - Adding new subject areas
 - Restructuring hierarchy
 - Moving content between sections
 - Adding major reference documents
-
-**Update this README when:**
 - Changing folder structure
-- Adding/removing top-level sections
 - Updating knowledge base vision
 
 **Date stamp protocol:**
 - Update date when changing structure
 - Major content reorganization requires date update
 - Keep synchronized with folder structure
-
----
-
-**See INDEX.md for detailed navigation and cross-references.**

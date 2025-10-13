@@ -22,22 +22,10 @@
 	path = TEMPLATES/cookiecutter
 	url = https://github.com/cookiecutter/cookiecutter.git
 
-[submodule "TEMPLATES/fastapi-stack"]
-	path = TEMPLATES/fastapi-stack
-	url = https://github.com/tiangolo/full-stack-fastapi-postgresql.git
-
 [submodule "CONFIGS/gitignore-templates"]
 	path = CONFIGS/gitignore-templates
 	url = https://github.com/github/gitignore.git
 
-[submodule "CONFIGS/fastapi-configs"]
-	path = CONFIGS/fastapi-configs
-	url = https://github.com/tiangolo/fastapi.git
-
 [submodule "EXAMPLES/public-apis"]
 	path = EXAMPLES/public-apis
 	url = https://github.com/public-apis/public-apis.git
-
-[submodule "EXAMPLES/pydantic-examples"]
-	path = EXAMPLES/pydantic-examples
-	url = https://github.com/pydantic/pydantic.git

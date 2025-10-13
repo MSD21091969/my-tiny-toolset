@@ -1,4 +1,40 @@
-# Data Intelligence Toolkit - Field References
+# Data Intelligence Toolkit - Field Notes
+
+**Last updated:** 2025-10-14
+
+---
+
+## 🎯 Knowledge Base Vision (REFERENCE/ Folder)
+
+The REFERENCE/ folder serves as our consolidated knowledge base covering:
+
+**Core Knowledge Areas:**
+- **Science & Engineering** - RAG optimization, MLOps patterns, model tuning strategies
+- **Agent Tools & Combinations** - Tool composition patterns, parameter flow design
+- **Model Field Mappings** - Complete field inventories, parameter documentation, type hierarchies
+- **Audit Trail Integration** - Casefile toolset linkages, data lineage tracking
+- **Best Practices** - Engineering patterns, solutions catalog, implementation guides
+- **Source Indexes** - Curated links to authoritative references
+
+**Agent Interaction Pattern:**
+- RAG system provides: Relevant context + Parameter recommendations
+- Agent receives: Pre-reasoned responses, no ReAct loop needed
+- Communication focus: Tool relevance, parameter adjustments, execution confidence
+- Goal: Minimize reasoning overhead, maximize execution accuracy
+
+**Knowledge Organization:**
+- `SUBJECTS/` - Domain expertise (data-engineering, knowledge-graphs, api-design, mlops, documentation)
+- `SYSTEM/` - Architecture docs, service specs, registry patterns, request flows
+- `INDEX.md` - Master navigation and cross-references
+- `GRAND_CLASSIFICATION_PLAN.md` - Classification methodology
+
+**Maintenance Protocol:**
+- Move validated knowledge from WORKSPACE/ experiments to REFERENCE/SUBJECTS/
+- Keep INDEX.md synchronized with folder structure
+- Date stamp all README.md files when updating structure
+- Single source of truth - no duplicate information
+
+---
 
 ## 🚀 Data Engineering - ETL Patterns & Schema Evolution
 

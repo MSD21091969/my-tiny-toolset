@@ -1,5 +1,7 @@
 # Subject Areas
 
+**Last updated:** 2025-10-14
+
 This directory organizes knowledge by domain expertise areas.
 
 ## Current Subjects

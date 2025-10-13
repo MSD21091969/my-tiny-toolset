@@ -1,5 +1,7 @@
 # Research Workspace
 
+**Last updated:** 2025-10-14
+
 Personal research area for exploring subjects, testing ideas, and developing knowledge.
 
 ## Structure

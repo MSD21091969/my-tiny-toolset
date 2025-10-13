@@ -18,15 +18,16 @@
 - Tools location: `TOOLSET/*.py` (executable Python scripts)
 - Knowledge base structure:
   1. `TOOLSET/` - Analysis tools (Python scripts, batch wrappers)
-  2. `CLASSIFICATION/` - Model/method/tool definitions (Pydantic schemas, reference when user asks about classification system)
-  3. `DOCS/` - Documentation and guides
+  2. `REFERENCE/` - Knowledge base (science, engineering, architecture, guides, best practices)
+  3. `WORKSPACE/` - Research sandbox (field notes, experiments, drafts)
   4. `CONFIGS/` - Configuration templates and examples
-  5. `PROMPTS/` - AI prompt collections (reference when user asks for prompt patterns or AI interaction examples)
-  6. `SCHEMAS/` - JSON/YAML schemas (reference when user asks about data structure validation or API schemas)
-  7. `TEMPLATES/` - Project templates and boilerplates (reference when user asks to scaffold new projects)
-  8. `EXAMPLES/` - Code examples and references (reference when user needs implementation patterns)
-- Each capital folder has `README.md` with curated index/pointers (read and update as needed)
+  5. `PROMPTS/` - AI prompt collections (submodules: awesome-prompts, edu-prompts)
+  6. `SCHEMAS/` - JSON/YAML schemas (submodule: schemastore)
+  7. `TEMPLATES/` - Project templates and boilerplates (app-integration, cookiecutter)
+  8. `EXAMPLES/` - Code examples and references (submodule: public-apis)
+- **Each capital folder MUST have dated `README.md`** with curated index/pointers
 - Submodules contain external knowledge (folder README points to relevant sections)
+- See section 7 "Capital Folders Reference" for detailed structure
 
 **How:**
 - Application repos reference this toolset via Git clone or direct download
@@ -50,11 +51,13 @@
 
 **Documentation:**
 - Update existing MD files only (no new files unless requested)
-- Use subfolder README.md for detailed docs (e.g., `DOCS/README.md`)
+- Use subfolder README.md for detailed docs (e.g., `REFERENCE/README.md`)
+- **All README.md files MUST include "Last updated: YYYY-MM-DD" at top**
 - Single source of truth: no duplicate information across files
 - AI should read folder README first, then update it when content changes
 - README structure: Same sections as copilot-instructions.md but more explicit (AI updates these)
 - USERREADME.md: Human-facing project description (do not auto-update)
+- Use TOOLSET/README.md as template for structured, dated documentation
 
 ---
 
@@ -89,10 +92,11 @@ python $env:MY_TOOLSET\version_tracker.py . --version 1.0.0 --json
 4. Regenerate batch wrappers if needed
 
 **When updating repository folders:**
-1. Update content in respective folder (`CLASSIFICATION/`, `CONFIGS/`, `PROMPTS/`, etc.)
-2. Update folder's `README.md` if structure changed
-3. Keep main `README.md` in sync if visibility changed
+1. Update content in respective folder (`REFERENCE/`, `CONFIGS/`, `PROMPTS/`, etc.)
+2. **Always update folder's `README.md` with new date stamp** if structure changed
+3. Keep folder README current with content changes
 4. Test changes don't break tool integrations
+5. See section 7 for folder-specific maintenance rules
 
 **Document format rules:**
 - No duplicate information across files
@@ -119,7 +123,158 @@ python $env:MY_TOOLSET\version_tracker.py . --version 1.0.0 --json
 
 ---
 
-## 6. Quick Reference
+## 6. Capital Folders Reference
+
+**Critical: Every folder README.md must include date stamp at top: `**Last updated:** YYYY-MM-DD`**
+
+### TOOLSET/ - Analysis Tools
+**Purpose:** Core Python analysis scripts  
+**Contents:**
+- `version_tracker.py` - Full analysis + Git history
+- `code_analyzer.py` - Quick structure analysis  
+- `mapping_analyzer.py` - Relationship mapping
+- `excel_exporter.py` - Report generation
+- `*.bat` - Windows command wrappers
+
+**README.md:** Tool inventory, usage examples, maintenance warnings  
+**Update when:** Adding/modifying tools, changing CLI interfaces  
+**Template:** Use as model for other folder READMEs (structured, dated)
+
+---
+
+### REFERENCE/ - Knowledge Base
+**Purpose:** Consolidated knowledge repository (science, engineering, patterns, architecture)  
+**Structure:**
+- `INDEX.md` - Master navigation document
+- `USERREADME.md` - Human-facing overview (do not auto-update)
+- `GRAND_CLASSIFICATION_PLAN.md` - Classification methodology
+- `SUBJECTS/` - Domain expertise areas (data-engineering, mlops, api-design, etc.)
+- `SYSTEM/` - Complete system architecture documentation
+  - `architecture/` - Service overviews, system architecture
+  - `guides/` - Request flow, token schemas
+  - `registry/` - Registry consolidation analysis
+  - `specifications/` - MVP specs, toolset coverage
+
+**Knowledge Base Scope:**
+- RAG optimization patterns and agent tool combinations
+- Model field mappings and parameter documentation
+- Audit trail integration with casefile toolsets
+- Best practices, solutions, indexes to relevant sources
+- Engineering patterns (MLOps, model tuning, schema evolution)
+- **Agent interaction:** RAG provides responses + parameters (no reasoning/ReAct needed)
+- Communication focus: Relevance, tool selection, parameter adjustment
+
+**README.md:** Currently `INDEX.md` serves as master index  
+**Update when:** Adding subjects, restructuring hierarchy, moving content  
+**Maintenance:** Keep INDEX.md synchronized with folder structure
+
+---
+
+### WORKSPACE/ - Research Sandbox
+**Purpose:** Personal exploration area (messy by design)  
+**Structure:**
+- `FIELDNOTES.md` - Research findings, domain references, workflow commands
+- `field-notes/` - Daily research notes (planned)
+- `experiments/` - Test code, POCs (planned)
+- `drafts/` - WIP documents before moving to REFERENCE/ (planned)
+
+**Workflow:** Explore → Note → Experiment → Draft → Publish to REFERENCE/  
+**README.md:** Explains sandbox purpose and workflow  
+**Update when:** Changing research workflow, adding structure  
+**Maintenance:** Keep messy but move validated knowledge to REFERENCE/
+
+---
+
+### CONFIGS/ - Configuration Templates
+**Purpose:** Configuration examples for integration  
+**Contents:**
+- `gitignore-templates/` - .gitignore patterns for different project types
+
+**README.md:** Inventory of config types, usage instructions  
+**Update when:** Adding new configuration templates  
+**Maintenance:** Ensure templates stay current with tool requirements
+
+---
+
+### PROMPTS/ - AI Prompt Collections
+**Purpose:** Curated prompt libraries (external submodules)  
+**Submodules:**
+- `awesome-prompts/` - General purpose prompt engineering
+- `edu-prompts/` - Educational and learning prompts
+
+**README.md:** Index of prompt categories, submodule descriptions, update instructions  
+**Update when:** Adding submodules, categorizing prompts, updating submodules  
+**Maintenance:** Keep submodules current, document useful prompt patterns in FIELDNOTES
+
+---
+
+### SCHEMAS/ - Schema Definitions
+**Purpose:** JSON/YAML schema patterns (external submodule)  
+**Submodule:**
+- `schemastore/` - Common schema patterns (JSON Schema store)
+
+**README.md:** Schema catalog, validation examples, integration patterns  
+**Update when:** Adding schemas, changing validation approaches  
+**Maintenance:** Reference schemas in REFERENCE/SUBJECTS/ when relevant
+
+---
+
+### TEMPLATES/ - Project Templates
+**Purpose:** Boilerplate code and integration templates  
+**Contents:**
+- `app-integration/` - Templates for integrating toolset into app repos
+  - `copilot-instructions-template.md`
+  - `tasks-template.json`
+  - `gitignore-additions.txt`
+- `cookiecutter/` - Project scaffolding templates (submodule)
+
+**README.md:** Template inventory, usage instructions, integration guide  
+**Update when:** Adding templates, changing integration process  
+**Maintenance:** Keep templates synchronized with tool requirements
+
+---
+
+### EXAMPLES/ - Code Examples
+**Purpose:** Reference implementations and patterns  
+**Submodule:**
+- `public-apis/` - Public API examples and patterns
+
+**README.md:** Example catalog, usage patterns, integration examples  
+**Update when:** Adding examples, documenting patterns  
+**Maintenance:** Cross-reference examples in REFERENCE/SUBJECTS/
+
+---
+
+### Folder Maintenance Rules
+
+**Every README.md MUST have:**
+```markdown
+**Last updated:** YYYY-MM-DD
+
+## Contents
+[List of files/folders]
+
+## Purpose
+[Why this folder exists]
+
+## Maintenance
+[Update rules]
+```
+
+**Update frequency:**
+- TOOLSET/ - Every tool change
+- REFERENCE/ - Every knowledge addition/restructure
+- WORKSPACE/ - As needed (informal)
+- CONFIGS/, PROMPTS/, SCHEMAS/, TEMPLATES/, EXAMPLES/ - When content changes
+
+**Date stamp protocol:**
+- Update date when changing structure or adding/removing content
+- Small edits to existing content: optional date update
+- Major reorganization: MUST update date
+
+---
+
+## 7. Quick Reference
 
 **If user asks to analyze project:** → Wrong repo, open application repo instead  
 **If user asks to improve tool:** → This is correct repo, proceed  

@@ -243,4 +243,58 @@ from plotly.subplots import make_subplots
 
 ---
 
+## 🔧 Tool Engineering Focus
+
+### YAML-Driven Development
+- **Models defined in Pydantic** → Exported to YAML
+- **Tools defined in YAML** → Validated against methods
+- **Parameters mapped automatically** → Type-checked
+- **Changes in code** → Registry drift detection
+
+### Custom Tool Functions
+- Build reusable validators (9 functions so far)
+- Create custom types (20+ types so far)
+- Generic helpers for audit, session management
+- All validated with comprehensive tests
+
+### Problem-Solving Workflow
+1. Define problem (Git issue or ROUNDTRIP_ANALYSIS.md action item)
+2. Check existing solutions (REFERENCE/SUBJECTS/)
+3. Implement solution using custom types/validators
+4. Validate with tests (159+ tests framework)
+5. Document pattern if reusable (WORKSPACE/ → REFERENCE/)
+6. Update tool YAMLs if new parameters added
+
+---
+
+## 🔄 Data Workflow Cycle (RAG/Tuning)
+
+### Transfer
+- Gmail/Drive/Sheets → Casefile storage
+- Structured data models (GmailMessage, DriveFile, SheetData)
+- Audit trail: session_id → casefile_id hierarchy
+
+### Transformation
+- Pydantic validation ensures data quality
+- Custom types enforce constraints
+- Validators check business rules
+
+### Analysis
+- Code analysis tools from toolset
+- Parameter mapping validation
+- Registry drift detection
+
+### RAG Integration
+- Casefile as context storage
+- Session management for conversation continuity
+- Tool execution history for learning
+
+### Tuning Cycle
+- Validation errors → Improve models
+- Parameter mismatches → Update tool YAMLs
+- Test failures → Refine validation logic
+- Repeat cycle iteratively
+
+---
+
 *Happy data engineering! 🚀*

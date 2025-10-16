@@ -1,6 +1,6 @@
 # REFERENCE - Knowledge Base
 
-**Last updated:** 2025-10-14
+**Last updated:** 2025-10-16
 
 ## Purpose
 
@@ -9,7 +9,7 @@ Consolidated knowledge repository covering science, engineering, architecture, b
 ## Contents
 
 ### Core Documents
-- **[GRAND_CLASSIFICATION_PLAN.md](GRAND_CLASSIFICATION_PLAN.md)** - Classification methodology and framework
+- **GRAND_CLASSIFICATION_PLAN.md** - Moved to WORKSPACE/ (research/planning document)
 
 ### Knowledge Areas
 
@@ -28,6 +28,7 @@ Complete system architecture and documentation:
 - **guides/** - Request flows, token schemas, integration patterns, best practices
 - **registry/** - Registry consolidation analysis and summaries
 - **specifications/** - MVP specs, toolset coverage documentation
+- **model-docs/** - Auto-generated Pydantic model documentation (37 models) ✅
 
 ## Knowledge Base Vision
 

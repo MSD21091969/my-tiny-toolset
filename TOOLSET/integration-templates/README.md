@@ -1,6 +1,6 @@
 # Application Integration Setup
 
-**Last updated:** 2025-10-14
+**Last updated:** 2025-10-16
 
 This folder contains templates for integrating my-tiny-toolset into application repositories.
 

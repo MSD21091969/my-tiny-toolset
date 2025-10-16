@@ -1,0 +1,132 @@
+# Documentation Tools
+
+**Last updated:** 2025-10-16  
+**Tools:** 6 (examples, deprecation, variations, validator, generator, usage analyzer)
+
+## Purpose
+
+API documentation enhancement, quality metrics, and field usage analytics for Pydantic models.
+
+**Requires:** `$env:COLLIDER_PATH` pointing to application repository with Pydantic models.
+
+## Tools
+
+### json_schema_examples.py (439 lines)
+Generate and audit JSON schema examples for models.
+
+**Use for:** OpenAPI enhancement, example coverage tracking, example generation  
+**Outputs:** Text coverage reports, JSON examples, Python code
+
+```powershell
+python json_schema_examples.py --report
+python json_schema_examples.py --model CreateCasefileRequest
+python json_schema_examples.py --audit --json
+```
+
+**Coverage baseline:** 0% (37/37 models need examples)
+
+### deprecated_fields.py (384 lines)
+Track deprecated fields across models.
+
+**Use for:** Migration planning, API evolution tracking, deprecation audits  
+**Outputs:** Text deprecation list, JSON reports
+
+```powershell
+python deprecated_fields.py --list
+python deprecated_fields.py --model CasefileModel --json
+```
+
+**Current status:** 1 deprecated field found (CasefileModel.resources)
+
+### response_variations.py (432 lines)
+Analyze and suggest response model variations.
+
+**Use for:** API variant design, response flexibility, code generation  
+**Outputs:** Text suggestions, JSON variation specs, Python class templates
+
+```powershell
+python response_variations.py --coverage
+python response_variations.py --model CreateCasefileResponse --suggest
+python response_variations.py --model CreateCasefileResponse --template summary
+```
+
+**Variation types:** Summary, Detailed, Error, Pending, Partial  
+**Coverage baseline:** 0% (21 variations suggested for 5 base models)
+
+### schema_validator.py (447 lines)
+Validate JSON schemas for all Pydantic models.
+
+**Use for:** Schema correctness testing, roundtrip validation, quality assurance  
+**Outputs:** Text validation reports, JSON test results
+
+```powershell
+python schema_validator.py --test-all
+python schema_validator.py --model CreateCasefileRequest
+python schema_validator.py --test-all --json
+```
+
+**Validation status:** 37/37 models passing (100% valid)
+
+### model_docs_generator.py (461 lines)
+Auto-generate comprehensive markdown documentation for models.
+
+**Use for:** Model documentation, API reference generation, developer docs  
+**Outputs:** Markdown files per model + index, JSON metadata
+
+```powershell
+python model_docs_generator.py --generate-all
+python model_docs_generator.py --model CreateCasefileRequest
+python model_docs_generator.py --model CreateCasefileRequest --stdout
+```
+
+**Output:** `.tool-outputs/docs/` with 37 model docs + index.md  
+**Groups:** canonical, operations, views, workspace (4 packages)
+
+### field_usage_analyzer.py (388 lines)
+Analyze field usage patterns across models and methods.
+
+**Use for:** Unused field detection, hotspot analysis, optimization planning  
+**Outputs:** Text usage reports, JSON analytics
+
+```powershell
+python field_usage_analyzer.py --analyze
+python field_usage_analyzer.py --unused
+python field_usage_analyzer.py --hotspots --top 20
+python field_usage_analyzer.py --analyze --json
+```
+
+**Analysis results:**
+- 111 unique fields tracked
+- 94 unused fields (85%)
+- Top 10 hotspots: request_id, payload, timestamp, metadata (23 uses each)
+
+## Workflow
+
+**Typical documentation workflow:**
+
+1. **Validate schemas** → `schema_validator.py --test-all`
+2. **Check usage** → `field_usage_analyzer.py --analyze`
+3. **Generate docs** → `model_docs_generator.py --generate-all`
+4. **Track deprecation** → `deprecated_fields.py --list`
+5. **Plan variations** → `response_variations.py --coverage`
+
+## Prerequisites
+
+Set `$env:COLLIDER_PATH` before running any tool:
+
+```powershell
+$env:COLLIDER_PATH = "C:\path\to\my-tiny-data-collider"
+cd $env:MY_TOOLSET\documentation-tools
+```
+
+Tools require:
+- Pydantic models in `src/pydantic_models/`
+- Service methods with `@register_service_method` (for field_usage_analyzer)
+- Model registry in `config/models_inventory_v1.yaml`
+
+## Output Location
+
+Documentation artifacts generated in `.tool-outputs/docs/`:
+- Model markdown files (37 models)
+- index.md with table of contents
+- JSON metadata and analytics

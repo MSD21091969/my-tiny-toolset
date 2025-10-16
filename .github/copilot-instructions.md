@@ -1,5 +1,7 @@
 # AI Instructions - Toolset Repository
 
+**Last Updated:** 2025-10-16
+
 ## 1. What is "my-tiny-toolset"
 
 **What:**
@@ -27,7 +29,7 @@
   8. `EXAMPLES/` - Code examples and references (submodule: public-apis)
 - **Each capital folder MUST have dated `README.md`** with curated index/pointers
 - Submodules contain external knowledge (folder README points to relevant sections)
-- See section 7 "Capital Folders Reference" for detailed structure
+- See section 6 "Capital Folders Reference" for detailed structure
 
 **How:**
 - Application repos reference this toolset via Git clone or direct download
@@ -63,16 +65,45 @@
 
 ## 3. Tool Inventory
 
+**Total:** 17 tools organized in 3 categories
+
+### Code Analysis Tools (4) - `TOOLSET/analysis-tools/`
 | Tool | Purpose | Outputs |
-|------|---------|---------|
+|------|---------|---------||
 | `version_tracker.py` | Full analysis + Git history | JSON, YAML, HTML |
 | `code_analyzer.py` | Quick structure analysis | CSV, JSON, Excel |
 | `mapping_analyzer.py` | Relationship mapping | JSON, HTML dashboard |
 | `excel_exporter.py` | Report generation | XLSX (5 sheets) |
 
+### Workflow Composition Tools (7) - `TOOLSET/workflow-tools/`
+| Tool | Purpose | Typical Use |
+|------|---------|-------------|
+| `method_search.py` | Method discovery | Find methods by domain/capability |
+| `model_field_search.py` | Field search & mapping | Map response→request fields |
+| `parameter_flow_validator.py` | Workflow validation | Detect missing/incompatible fields |
+| `workflow_validator.py` | Comprehensive validation | Orchestrate all checks |
+| `composite_tool_generator.py` | Workflow generation | Generate YAML workflows |
+| `workflow_builder.py` | Interactive builder | Build from goals |
+| `data_flow_analyzer.py` | Data lineage tracking | Flow visualization |
+
+### Documentation Tools (6) - `TOOLSET/documentation-tools/`
+| Tool | Purpose | Typical Use |
+|------|---------|-------------|
+| `json_schema_examples.py` | Example generation | OpenAPI enhancement |
+| `deprecated_fields.py` | Deprecation tracking | Migration planning |
+| `response_variations.py` | Response variants | API variant design |
+| `schema_validator.py` | Schema validation | Test schema correctness |
+| `model_docs_generator.py` | Model documentation | Auto-generate docs |
+| `field_usage_analyzer.py` | Field analytics | Find unused fields |
+
 **Usage from application repos:**
 ```powershell
-python $env:MY_TOOLSET\version_tracker.py . --version 1.0.0 --json
+# Code analysis (no dependencies)
+python $env:MY_TOOLSET\analysis-tools\version_tracker.py . --version 1.0.0 --json
+
+# Workflow tools (requires $env:COLLIDER_PATH)
+$env:COLLIDER_PATH = "C:\path\to\application"
+python $env:MY_TOOLSET\workflow-tools\method_search.py "gmail"
 ```
 
 **Output location:**
@@ -96,7 +127,7 @@ python $env:MY_TOOLSET\version_tracker.py . --version 1.0.0 --json
 2. **Always update folder's `README.md` with new date stamp** if structure changed
 3. Keep folder README current with content changes
 4. Test changes don't break tool integrations
-5. See section 7 for folder-specific maintenance rules
+5. See section 6 for folder-specific maintenance rules
 
 **Document format rules:**
 - No duplicate information across files
@@ -128,32 +159,34 @@ python $env:MY_TOOLSET\version_tracker.py . --version 1.0.0 --json
 **Critical: Every folder README.md must include date stamp at top: `**Last updated:** YYYY-MM-DD`**
 
 ### TOOLSET/ - Analysis Tools
-**Purpose:** Core Python analysis scripts  
-**Contents:**
-- `version_tracker.py` - Full analysis + Git history
-- `code_analyzer.py` - Quick structure analysis  
-- `mapping_analyzer.py` - Relationship mapping
-- `excel_exporter.py` - Report generation
-- `*.bat` - Windows command wrappers
+**Purpose:** Meta-tools for Python code analysis and FastAPI application development  
+**Organization:** 3 category folders with 17 total tools
 
-**README.md:** Tool inventory, usage examples, maintenance warnings  
-**Update when:** Adding/modifying tools, changing CLI interfaces  
-**Template:** Use as model for other folder READMEs (structured, dated)
+**Structure:**
+- `analysis-tools/` - 4 tools: Code analysis without dependencies (code_analyzer, version_tracker, mapping_analyzer, excel_exporter)
+- `workflow-tools/` - 7 tools: Method discovery, workflow validation, composite generation (requires COLLIDER_PATH)
+- `documentation-tools/` - 6 tools: API docs, field analytics, schema validation (requires COLLIDER_PATH)
+- `integration-templates/` - Templates for app integration
+- `*.bat` - Windows command wrappers (in analysis-tools/)
+
+**README.md:** Master guide with all 17 tools, usage examples, category descriptions  
+**Update when:** Adding/modifying tools, changing CLI interfaces, reorganizing categories  
+**Template:** Use as model for other folder READMEs (structured, dated, comprehensive)
 
 ---
 
 ### REFERENCE/ - Knowledge Base
 **Purpose:** Consolidated knowledge repository (science, engineering, patterns, architecture)  
 **Structure:**
-- `INDEX.md` - Master navigation document
-- `USERREADME.md` - Human-facing overview (do not auto-update)
-- `GRAND_CLASSIFICATION_PLAN.md` - Classification methodology
+- `README.md` - Master navigation and index
 - `SUBJECTS/` - Domain expertise areas (data-engineering, mlops, api-design, etc.)
+  - `shared-patterns/` - Reusable code patterns (Pydantic types, validators, utilities)
 - `SYSTEM/` - Complete system architecture documentation
   - `architecture/` - Service overviews, system architecture
   - `guides/` - Request flow, token schemas
   - `registry/` - Registry consolidation analysis
   - `specifications/` - MVP specs, toolset coverage
+  - `model-docs/` - Auto-generated Pydantic model documentation (37 models)
 
 **Knowledge Base Scope:**
 - RAG optimization patterns and agent tool combinations
@@ -164,9 +197,9 @@ python $env:MY_TOOLSET\version_tracker.py . --version 1.0.0 --json
 - **Agent interaction:** RAG provides responses + parameters (no reasoning/ReAct needed)
 - Communication focus: Relevance, tool selection, parameter adjustment
 
-**README.md:** Currently `INDEX.md` serves as master index  
-**Update when:** Adding subjects, restructuring hierarchy, moving content  
-**Maintenance:** Keep INDEX.md synchronized with folder structure
+**README.md:** Master index and navigation document  
+**Update when:** Adding subjects, restructuring hierarchy, moving content, adding model-docs  
+**Maintenance:** Keep synchronized with folder structure, update when SYSTEM/ contents change
 
 ---
 

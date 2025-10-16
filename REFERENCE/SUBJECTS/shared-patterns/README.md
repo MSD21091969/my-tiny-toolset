@@ -8,6 +8,13 @@ Reference implementations and validated patterns for reusable code across projec
 
 ## Contents
 
+### [VALIDATION_PATTERNS.md](VALIDATION_PATTERNS.md) ⭐
+**Complete validation guide** (quick reference + pointer to full docs)
+- 30 custom types catalog (IDs, strings, numbers, timestamps, URLs/emails)
+- 12 reusable validators reference
+- Migration instructions for other projects
+- **Full detailed guide:** `my-tiny-data-collider/docs/VALIDATION_PATTERNS.md` (870 lines)
+
 ### [pydantic-models/](pydantic-models/)
 Reusable Pydantic model patterns:
 - Custom annotated types (CasefileId, ShortString, etc.)
@@ -16,11 +23,12 @@ Reusable Pydantic model patterns:
 - Serialization strategies
 
 ### [validators/](validators/)
-Reusable validator functions:
+Reusable validator functions (detailed breakdown):
 - Field validators (@field_validator)
 - Model validators (@model_validator)
 - Cross-field validation patterns
 - Conditional validation logic
+- **See also:** VALIDATION_PATTERNS.md for complete catalog
 
 ### [utilities/](utilities/)
 Helper functions and utilities:
@@ -64,11 +72,13 @@ class CustomType:
 ## Maturity Criteria
 
 Extract to `my-tiny-shared-libs` when:
-- ✅ 5+ patterns validated in production code
-- ✅ Patterns used in 3+ different contexts
-- ✅ Comprehensive tests written
-- ✅ Documentation complete
-- ✅ API stable (no breaking changes expected)
+- ✅ **5+ patterns validated** - Currently have 30 custom types + 12 validators (42 total)
+- ✅ **Used in 3+ contexts** - Used across 16 model files in collider (95+ fields)
+- ✅ **Comprehensive tests** - 236/236 tests passing
+- ✅ **Documentation complete** - VALIDATION_PATTERNS.md (870 lines)
+- ✅ **API stable** - No breaking changes expected
+
+**Status:** ✅ Ready for extraction when shared-libs repo is created
 
 ## Related Documentation
 

@@ -172,9 +172,9 @@ Tools create `.tool-outputs/` in the directory where executed:
 | Category | Tools | Environment |
 |----------|-------|-------------|
 | **Code Analysis** | 4 tools | Any Python project |
-| **Workflow Composition** | 4 tools | Requires COLLIDER_PATH |
-| **Documentation** | 2 tools | Requires COLLIDER_PATH |
-| **Total** | **10 tools** | |
+| **Workflow Composition** | 7 tools | Requires COLLIDER_PATH |
+| **Documentation** | 6 tools | Requires COLLIDER_PATH |
+| **Total** | **17 tools** | |
 
 ## Dependencies
 

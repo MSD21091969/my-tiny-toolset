@@ -13,21 +13,21 @@
 
 This directory contains **auto-generated documentation for all 121 Pydantic models** in the my-tiny-data-collider application. This is the single source of truth for model documentation, replacing manual YAML inventories.
 
-**28 registered service methods** use these models as their data contracts, exposing them through **34 tool YAMLs** to agents.
+**28 registered service methods** now have complete Request/Response model auto-discovery (0 warnings), exposing them through tool YAMLs to agents.
 
 ### The Method → Model → Tool Chain
 
 ```
 28 Service Methods (@register_service_method)
     ↓ use
-37 Core Models (Request/Response DTOs + Domain Entities)
-    ↓ wrapped by
-34 Tool YAMLs (config/methodtools_v1/)
+121 Models (Request/Response DTOs + Domain Entities + Payloads)
+    ↓ exposed via
+methods_inventory_v1.yaml (auto-generated from MANAGED_METHODS registry)
     ↓ consumed by
 Agents (tool_calls → backend execution)
 ```
 
-**Key Insight:** The 37 documented models are the **data contracts** for the 28 methods that tools expose to agents.
+**Key Insight:** All 28 methods now have Request/Response models properly detected by decorator auto-discovery (fixed by removing `__future__.annotations` and refactoring 3 methods to use Request/Response pattern).
 
 ### Documentation Coverage
 

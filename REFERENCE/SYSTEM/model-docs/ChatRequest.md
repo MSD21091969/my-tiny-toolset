@@ -1,8 +1,8 @@
-# ListCasefilesRequest
+# ChatRequest
 
 **Package:** `pydantic_models.operations`
 
-Request to list casefiles.
+Request to send a chat message.
 
 ---
 
@@ -14,7 +14,7 @@ Request to list casefiles.
 | `session_id` | Optional |  | Optional session identifier |
 | `user_id` | str | ✓ | User making the request |
 | `operation` | Literal |  | - |
-| `payload` | ListCasefilesPayload | ✓ | Request payload |
+| `payload` | ChatRequestPayload | ✓ | Request payload |
 | `timestamp` | str |  | Request timestamp |
 | `metadata` | Dict |  | Additional metadata for the request |
 | `context_requirements` | List |  | Optional context requirements for RequestHub (e.g., ['mds_context', 'casefile']). |
@@ -33,7 +33,7 @@ Request to list casefiles.
 
 ### `operation`
 
-**Default:** `list_casefiles`
+**Default:** `chat`
 
 ### `timestamp`
 
@@ -66,13 +66,31 @@ Request to list casefiles.
 ```json
 {
   "$defs": {
-    "ListCasefilesPayload": {
-      "description": "Payload for listing casefiles with filters.",
+    "ChatRequestPayload": {
+      "description": "Payload for chat message request (operation parameters).",
       "properties": {
-        "user_id": {
+        "message": {
+          "description": "User message content",
+          "examples": [
+            "Find all emails from last week",
+            "Create a casefile for the Smith investigation"
+          ],
+          "title": "Message",
+          "type": "string"
+        },
+        "session_id": {
+          "description": "Chat session ID",
+          "examples": [
+            "cs_251013_chat001",
+            "cs_250920_conv456"
+          ],
+          "title": "Session Id",
+          "type": "string"
+        },
+        "casefile_id": {
           "anyOf": [
             {
-              "description": "User identifier (typically email address)",
+              "description": "Casefile ID in format cf_YYMMDD_code",
               "type": "string"
             },
             {
@@ -80,35 +98,18 @@ Request to list casefiles.
             }
           ],
           "default": null,
-          "description": "Filter by user ID (owner)",
-          "example": "user@example.com",
-          "title": "User Id"
+          "description": "Optional casefile context",
+          "examples": [
+            "cf_251013_abc123"
+          ],
+          "title": "Casefile Id"
         },
-        "tags": {
+        "session_request_id": {
           "anyOf": [
             {
-              "description": "List of tags for categorization",
-              "items": {
-                "type": "string"
-              },
-              "type": "array"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "default": null,
-          "description": "Filter by tags (any match)",
-          "example": [
-            "incident",
-            "email"
-          ],
-          "title": "Tags"
-        },
-        "search_query": {
-          "anyOf": [
-            {
-              "maxLength": 500,
+              "description": "Short string (1-200 characters)",
+              "maxLength": 200,
+              "minLength": 1,
               "type": "string"
             },
             {
@@ -116,33 +117,22 @@ Request to list casefiles.
             }
           ],
           "default": null,
-          "description": "Search in title/description",
-          "example": "investigation",
-          "title": "Search Query"
-        },
-        "limit": {
-          "default": 50,
-          "description": "Maximum results to return",
-          "example": 50,
-          "exclusiveMinimum": 0,
-          "maximum": 100,
-          "title": "Limit",
-          "type": "integer"
-        },
-        "offset": {
-          "default": 0,
-          "description": "Offset for pagination",
-          "example": 0,
-          "minimum": 0,
-          "title": "Offset",
-          "type": "integer"
+          "description": "Client-provided session request ID for tracking",
+          "examples": [
+            "req_001"
+          ],
+          "title": "Session Request Id"
         }
       },
-      "title": "ListCasefilesPayload",
+      "required": [
+        "message",
+        "session_id"
+      ],
+      "title": "ChatRequestPayload",
       "type": "object"
     }
   },
-  "description": "Request to list casefiles.",
+  "description": "Request to send a chat message.",
   "properties": {
     "request_id": {
       "description": "Unique request identifier",
@@ -170,13 +160,13 @@ Request to list casefiles.
       "type": "string"
     },
     "operation": {
-      "const": "list_casefiles",
-      "default": "list_casefiles",
+      "const": "chat",
+      "default": "chat",
       "title": "Operation",
       "type": "string"
     },
     "payload": {
-      "$ref": "#/$defs/ListCasefilesPayload",
+      "$ref": "#/$defs/ChatRequestPayload",
       "description": "Request payload"
     },
     "timestamp": {
@@ -223,7 +213,7 @@ Request to list casefiles.
     "user_id",
     "payload"
   ],
-  "title": "ListCasefilesRequest",
+  "title": "ChatRequest",
   "type": "object"
 }
 ```

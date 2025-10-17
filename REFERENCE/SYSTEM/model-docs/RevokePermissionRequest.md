@@ -1,8 +1,8 @@
-# ListCasefilesRequest
+# RevokePermissionRequest
 
 **Package:** `pydantic_models.operations`
 
-Request to list casefiles.
+Request to revoke permission from a user.
 
 ---
 
@@ -14,7 +14,7 @@ Request to list casefiles.
 | `session_id` | Optional |  | Optional session identifier |
 | `user_id` | str | ✓ | User making the request |
 | `operation` | Literal |  | - |
-| `payload` | ListCasefilesPayload | ✓ | Request payload |
+| `payload` | RevokePermissionPayload | ✓ | Request payload |
 | `timestamp` | str |  | Request timestamp |
 | `metadata` | Dict |  | Additional metadata for the request |
 | `context_requirements` | List |  | Optional context requirements for RequestHub (e.g., ['mds_context', 'casefile']). |
@@ -33,7 +33,7 @@ Request to list casefiles.
 
 ### `operation`
 
-**Default:** `list_casefiles`
+**Default:** `revoke_permission`
 
 ### `timestamp`
 
@@ -66,83 +66,29 @@ Request to list casefiles.
 ```json
 {
   "$defs": {
-    "ListCasefilesPayload": {
-      "description": "Payload for listing casefiles with filters.",
+    "RevokePermissionPayload": {
+      "description": "Payload for revoking permission from a user.",
       "properties": {
-        "user_id": {
-          "anyOf": [
-            {
-              "description": "User identifier (typically email address)",
-              "type": "string"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "default": null,
-          "description": "Filter by user ID (owner)",
-          "example": "user@example.com",
-          "title": "User Id"
+        "casefile_id": {
+          "description": "Casefile ID",
+          "title": "Casefile Id",
+          "type": "string"
         },
-        "tags": {
-          "anyOf": [
-            {
-              "description": "List of tags for categorization",
-              "items": {
-                "type": "string"
-              },
-              "type": "array"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "default": null,
-          "description": "Filter by tags (any match)",
-          "example": [
-            "incident",
-            "email"
-          ],
-          "title": "Tags"
-        },
-        "search_query": {
-          "anyOf": [
-            {
-              "maxLength": 500,
-              "type": "string"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "default": null,
-          "description": "Search in title/description",
-          "example": "investigation",
-          "title": "Search Query"
-        },
-        "limit": {
-          "default": 50,
-          "description": "Maximum results to return",
-          "example": 50,
-          "exclusiveMinimum": 0,
-          "maximum": 100,
-          "title": "Limit",
-          "type": "integer"
-        },
-        "offset": {
-          "default": 0,
-          "description": "Offset for pagination",
-          "example": 0,
-          "minimum": 0,
-          "title": "Offset",
-          "type": "integer"
+        "target_user_id": {
+          "description": "User to revoke permission from",
+          "title": "Target User Id",
+          "type": "string"
         }
       },
-      "title": "ListCasefilesPayload",
+      "required": [
+        "casefile_id",
+        "target_user_id"
+      ],
+      "title": "RevokePermissionPayload",
       "type": "object"
     }
   },
-  "description": "Request to list casefiles.",
+  "description": "Request to revoke permission from a user.",
   "properties": {
     "request_id": {
       "description": "Unique request identifier",
@@ -170,13 +116,13 @@ Request to list casefiles.
       "type": "string"
     },
     "operation": {
-      "const": "list_casefiles",
-      "default": "list_casefiles",
+      "const": "revoke_permission",
+      "default": "revoke_permission",
       "title": "Operation",
       "type": "string"
     },
     "payload": {
-      "$ref": "#/$defs/ListCasefilesPayload",
+      "$ref": "#/$defs/RevokePermissionPayload",
       "description": "Request payload"
     },
     "timestamp": {
@@ -223,7 +169,7 @@ Request to list casefiles.
     "user_id",
     "payload"
   ],
-  "title": "ListCasefilesRequest",
+  "title": "RevokePermissionRequest",
   "type": "object"
 }
 ```

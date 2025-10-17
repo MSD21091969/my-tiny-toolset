@@ -30,7 +30,11 @@ Complete system architecture and documentation:
   - Covers: Two-repository architecture, session design, RAR pattern, validation framework, test suite architecture
 - **registry/** - Registry consolidation analysis and summaries
 - **specifications/** - MVP specs, toolset coverage documentation
-- **model-docs/** - Auto-generated Pydantic model documentation (37 models) ✅
+- **[model-docs/](SYSTEM/model-docs/)** - Auto-generated Pydantic model documentation ✅
+  - **37 core models documented** (public API surface)
+  - Organized by architecture layer: canonical (9), operations (12), views (3), workspace (13)
+  - Covers 78 total models in codebase
+  - Model hierarchy, validation patterns, quick reference guides
 
 ## Knowledge Base Vision
 
@@ -50,8 +54,8 @@ Complete system architecture and documentation:
 
 **New to the project?** Read these in order:
 1. **SYSTEM/guides/20251016_user_manual.md** - Complete system architecture and philosophy
-2. **SUBJECTS/shared-patterns/** - Reusable code patterns (Pydantic types, validators)
-3. **SYSTEM/model-docs/** - Auto-generated model documentation
+2. **SYSTEM/model-docs/README.md** - Model documentation index with architecture layers and hierarchy
+3. **SUBJECTS/shared-patterns/** - Reusable code patterns (Pydantic types, validators)
 
 **For AI assistants:** Primary reference is `SYSTEM/guides/20251016_user_manual.md` for system context and architectural decisions.
 
@@ -66,12 +70,16 @@ Complete system architecture and documentation:
 ## Recent Updates
 
 **2025-10-17:**
+- **Systematized model documentation** - Reorganized model-docs README with architecture layers
+  - Added model statistics: 37 documented / 78 total models
+  - Created model hierarchy diagram (CasefileModel → children)
+  - Organized by layer: domain entities, DTOs, views, workspace models
+  - Added quick reference by use case and validation framework section
 - Removed tool-engineering-workflow.md from SUBJECTS/ (consolidated into user manual)
 - Updated user manual with test suite architecture section (Section 14)
 - Documented pytest 8.x import resolution discovery (no `__init__.py` in test dirs)
 - Updated test counts: 179 unit tests (all passing), 34 integration tests
 - Fixed import patterns throughout codebase (removed "from src." pattern)
-- Added Quick Start section pointing to primary manual
 
 **2025-10-16:**
 - Added 20251016_user_manual.md covering complete data-first AI architecture

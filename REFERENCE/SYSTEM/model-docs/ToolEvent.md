@@ -10,7 +10,7 @@ Record of a tool execution within a session.
 
 | Field | Type | Required | Description |
 |-------|------|----------|-------------|
-| `event_id` | str |  | - |
+| `event_id` | str |  | Event identifier |
 | `event_type` | str | ✓ | Type of event: tool_request_received, tool_execution_started, tool_execution_completed, tool_execution_failed, tool_response_sent |
 | `tool_name` | str | ✓ | Name of the tool executed |
 | `timestamp` | str |  | Event timestamp (ISO 8601) |
@@ -61,6 +61,7 @@ Record of a tool execution within a session.
   "description": "Record of a tool execution within a session.",
   "properties": {
     "event_id": {
+      "description": "Event identifier",
       "example": "evt_abc123",
       "title": "Event Id",
       "type": "string"

@@ -1,8 +1,8 @@
-# ListCasefilesRequest
+# StoreDriveFilesRequest
 
 **Package:** `pydantic_models.operations`
 
-Request to list casefiles.
+Request to store Drive files in casefile.
 
 ---
 
@@ -14,7 +14,7 @@ Request to list casefiles.
 | `session_id` | Optional |  | Optional session identifier |
 | `user_id` | str | ✓ | User making the request |
 | `operation` | Literal |  | - |
-| `payload` | ListCasefilesPayload | ✓ | Request payload |
+| `payload` | StoreDriveFilesPayload | ✓ | Request payload |
 | `timestamp` | str |  | Request timestamp |
 | `metadata` | Dict |  | Additional metadata for the request |
 | `context_requirements` | List |  | Optional context requirements for RequestHub (e.g., ['mds_context', 'casefile']). |
@@ -33,7 +33,7 @@ Request to list casefiles.
 
 ### `operation`
 
-**Default:** `list_casefiles`
+**Default:** `store_drive_files`
 
 ### `timestamp`
 
@@ -66,13 +66,26 @@ Request to list casefiles.
 ```json
 {
   "$defs": {
-    "ListCasefilesPayload": {
-      "description": "Payload for listing casefiles with filters.",
+    "StoreDriveFilesPayload": {
+      "description": "Payload for storing Google Drive files in casefile.",
       "properties": {
-        "user_id": {
+        "casefile_id": {
+          "description": "Casefile ID",
+          "title": "Casefile Id",
+          "type": "string"
+        },
+        "files": {
+          "description": "Drive files (DriveFile dicts)",
+          "items": {
+            "additionalProperties": true,
+            "type": "object"
+          },
+          "title": "Files",
+          "type": "array"
+        },
+        "sync_token": {
           "anyOf": [
             {
-              "description": "User identifier (typically email address)",
               "type": "string"
             },
             {
@@ -80,69 +93,25 @@ Request to list casefiles.
             }
           ],
           "default": null,
-          "description": "Filter by user ID (owner)",
-          "example": "user@example.com",
-          "title": "User Id"
+          "description": "Incremental sync token from Drive API",
+          "title": "Sync Token"
         },
-        "tags": {
-          "anyOf": [
-            {
-              "description": "List of tags for categorization",
-              "items": {
-                "type": "string"
-              },
-              "type": "array"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "default": null,
-          "description": "Filter by tags (any match)",
-          "example": [
-            "incident",
-            "email"
-          ],
-          "title": "Tags"
-        },
-        "search_query": {
-          "anyOf": [
-            {
-              "maxLength": 500,
-              "type": "string"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "default": null,
-          "description": "Search in title/description",
-          "example": "investigation",
-          "title": "Search Query"
-        },
-        "limit": {
-          "default": 50,
-          "description": "Maximum results to return",
-          "example": 50,
-          "exclusiveMinimum": 0,
-          "maximum": 100,
-          "title": "Limit",
-          "type": "integer"
-        },
-        "offset": {
-          "default": 0,
-          "description": "Offset for pagination",
-          "example": 0,
-          "minimum": 0,
-          "title": "Offset",
-          "type": "integer"
+        "overwrite": {
+          "default": false,
+          "description": "Replace existing cache instead of merging",
+          "title": "Overwrite",
+          "type": "boolean"
         }
       },
-      "title": "ListCasefilesPayload",
+      "required": [
+        "casefile_id",
+        "files"
+      ],
+      "title": "StoreDriveFilesPayload",
       "type": "object"
     }
   },
-  "description": "Request to list casefiles.",
+  "description": "Request to store Drive files in casefile.",
   "properties": {
     "request_id": {
       "description": "Unique request identifier",
@@ -170,13 +139,13 @@ Request to list casefiles.
       "type": "string"
     },
     "operation": {
-      "const": "list_casefiles",
-      "default": "list_casefiles",
+      "const": "store_drive_files",
+      "default": "store_drive_files",
       "title": "Operation",
       "type": "string"
     },
     "payload": {
-      "$ref": "#/$defs/ListCasefilesPayload",
+      "$ref": "#/$defs/StoreDriveFilesPayload",
       "description": "Request payload"
     },
     "timestamp": {
@@ -223,7 +192,7 @@ Request to list casefiles.
     "user_id",
     "payload"
   ],
-  "title": "ListCasefilesRequest",
+  "title": "StoreDriveFilesRequest",
   "type": "object"
 }
 ```

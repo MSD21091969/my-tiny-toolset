@@ -54,9 +54,6 @@ Summary of a tool session.
     "title": {
       "anyOf": [
         {
-          "description": "Short string (1-200 characters)",
-          "maxLength": 200,
-          "minLength": 1,
           "type": "string"
         },
         {

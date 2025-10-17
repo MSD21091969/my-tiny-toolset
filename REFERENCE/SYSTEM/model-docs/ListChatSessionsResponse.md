@@ -1,0 +1,221 @@
+# ListChatSessionsResponse
+
+**Package:** `pydantic_models.operations`
+
+Response with list of chat sessions.
+
+---
+
+## Fields
+
+| Field | Type | Required | Description |
+|-------|------|----------|-------------|
+| `request_id` | UUID | ✓ | ID of the originating request |
+| `status` | RequestStatus | ✓ | Request processing status |
+| `payload` | ChatSessionListPayload | ✓ | Response payload |
+| `timestamp` | str |  | Response timestamp |
+| `error` | Optional |  | Error message if status is FAILED |
+| `metadata` | Dict |  | Additional metadata for the response |
+
+## Field Details
+
+### `request_id`
+
+**Constraints:**
+- format: uuid
+
+### `timestamp`
+
+**Default:** `PydanticUndefined`
+
+### `metadata`
+
+**Default:** `PydanticUndefined`
+
+---
+
+## JSON Schema
+
+```json
+{
+  "$defs": {
+    "ChatSessionListPayload": {
+      "description": "Response payload with list of chat sessions.",
+      "properties": {
+        "sessions": {
+          "description": "List of sessions",
+          "items": {
+            "$ref": "#/$defs/ChatSessionSummary"
+          },
+          "title": "Sessions",
+          "type": "array"
+        },
+        "total_count": {
+          "description": "Total matching sessions",
+          "examples": [
+            0,
+            5,
+            42,
+            156
+          ],
+          "minimum": 0,
+          "title": "Total Count",
+          "type": "integer"
+        },
+        "offset": {
+          "description": "Current offset",
+          "examples": [
+            0,
+            50,
+            100
+          ],
+          "minimum": 0,
+          "title": "Offset",
+          "type": "integer"
+        },
+        "limit": {
+          "description": "Current limit",
+          "examples": [
+            10,
+            25,
+            50
+          ],
+          "exclusiveMinimum": 0,
+          "title": "Limit",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "total_count",
+        "offset",
+        "limit"
+      ],
+      "title": "ChatSessionListPayload",
+      "type": "object"
+    },
+    "ChatSessionSummary": {
+      "description": "Summary of a chat session.",
+      "properties": {
+        "session_id": {
+          "description": "Session ID",
+          "title": "Session Id",
+          "type": "string"
+        },
+        "user_id": {
+          "description": "User ID",
+          "title": "User Id",
+          "type": "string"
+        },
+        "casefile_id": {
+          "anyOf": [
+            {
+              "description": "Casefile ID in format cf_YYMMDD_code",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Casefile ID if any",
+          "title": "Casefile Id"
+        },
+        "created_at": {
+          "description": "Creation timestamp",
+          "title": "Created At",
+          "type": "string"
+        },
+        "updated_at": {
+          "description": "Last update timestamp",
+          "title": "Updated At",
+          "type": "string"
+        },
+        "active": {
+          "description": "Active status",
+          "title": "Active",
+          "type": "boolean"
+        },
+        "message_count": {
+          "default": 0,
+          "description": "Number of messages",
+          "minimum": 0,
+          "title": "Message Count",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "session_id",
+        "user_id",
+        "created_at",
+        "updated_at",
+        "active"
+      ],
+      "title": "ChatSessionSummary",
+      "type": "object"
+    },
+    "RequestStatus": {
+      "description": "Status of a request.",
+      "enum": [
+        "pending",
+        "processing",
+        "completed",
+        "failed"
+      ],
+      "title": "RequestStatus",
+      "type": "string"
+    }
+  },
+  "description": "Response with list of chat sessions.",
+  "properties": {
+    "request_id": {
+      "description": "ID of the originating request",
+      "format": "uuid",
+      "title": "Request Id",
+      "type": "string"
+    },
+    "status": {
+      "$ref": "#/$defs/RequestStatus",
+      "description": "Request processing status"
+    },
+    "payload": {
+      "$ref": "#/$defs/ChatSessionListPayload",
+      "description": "Response payload"
+    },
+    "timestamp": {
+      "description": "Response timestamp",
+      "title": "Timestamp",
+      "type": "string"
+    },
+    "error": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Error message if status is FAILED",
+      "title": "Error"
+    },
+    "metadata": {
+      "additionalProperties": true,
+      "description": "Additional metadata for the response",
+      "title": "Metadata",
+      "type": "object"
+    }
+  },
+  "required": [
+    "request_id",
+    "status",
+    "payload"
+  ],
+  "title": "ListChatSessionsResponse",
+  "type": "object"
+}
+```
+
+---
+
+*Generated by model_docs_generator.py*

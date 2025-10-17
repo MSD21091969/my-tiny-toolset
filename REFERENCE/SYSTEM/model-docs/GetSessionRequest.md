@@ -1,8 +1,8 @@
-# ListCasefilesRequest
+# GetSessionRequest
 
 **Package:** `pydantic_models.operations`
 
-Request to list casefiles.
+Request to get session details.
 
 ---
 
@@ -14,7 +14,7 @@ Request to list casefiles.
 | `session_id` | Optional |  | Optional session identifier |
 | `user_id` | str | ✓ | User making the request |
 | `operation` | Literal |  | - |
-| `payload` | ListCasefilesPayload | ✓ | Request payload |
+| `payload` | GetSessionPayload | ✓ | Request payload |
 | `timestamp` | str |  | Request timestamp |
 | `metadata` | Dict |  | Additional metadata for the request |
 | `context_requirements` | List |  | Optional context requirements for RequestHub (e.g., ['mds_context', 'casefile']). |
@@ -33,7 +33,7 @@ Request to list casefiles.
 
 ### `operation`
 
-**Default:** `list_casefiles`
+**Default:** `get_session`
 
 ### `timestamp`
 
@@ -66,83 +66,27 @@ Request to list casefiles.
 ```json
 {
   "$defs": {
-    "ListCasefilesPayload": {
-      "description": "Payload for listing casefiles with filters.",
+    "GetSessionPayload": {
+      "description": "Payload for retrieving a session.",
       "properties": {
-        "user_id": {
-          "anyOf": [
-            {
-              "description": "User identifier (typically email address)",
-              "type": "string"
-            },
-            {
-              "type": "null"
-            }
+        "session_id": {
+          "description": "Session ID to retrieve",
+          "examples": [
+            "ts_251013_tool001",
+            "ts_250920_exec456"
           ],
-          "default": null,
-          "description": "Filter by user ID (owner)",
-          "example": "user@example.com",
-          "title": "User Id"
-        },
-        "tags": {
-          "anyOf": [
-            {
-              "description": "List of tags for categorization",
-              "items": {
-                "type": "string"
-              },
-              "type": "array"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "default": null,
-          "description": "Filter by tags (any match)",
-          "example": [
-            "incident",
-            "email"
-          ],
-          "title": "Tags"
-        },
-        "search_query": {
-          "anyOf": [
-            {
-              "maxLength": 500,
-              "type": "string"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "default": null,
-          "description": "Search in title/description",
-          "example": "investigation",
-          "title": "Search Query"
-        },
-        "limit": {
-          "default": 50,
-          "description": "Maximum results to return",
-          "example": 50,
-          "exclusiveMinimum": 0,
-          "maximum": 100,
-          "title": "Limit",
-          "type": "integer"
-        },
-        "offset": {
-          "default": 0,
-          "description": "Offset for pagination",
-          "example": 0,
-          "minimum": 0,
-          "title": "Offset",
-          "type": "integer"
+          "title": "Session Id",
+          "type": "string"
         }
       },
-      "title": "ListCasefilesPayload",
+      "required": [
+        "session_id"
+      ],
+      "title": "GetSessionPayload",
       "type": "object"
     }
   },
-  "description": "Request to list casefiles.",
+  "description": "Request to get session details.",
   "properties": {
     "request_id": {
       "description": "Unique request identifier",
@@ -170,13 +114,13 @@ Request to list casefiles.
       "type": "string"
     },
     "operation": {
-      "const": "list_casefiles",
-      "default": "list_casefiles",
+      "const": "get_session",
+      "default": "get_session",
       "title": "Operation",
       "type": "string"
     },
     "payload": {
-      "$ref": "#/$defs/ListCasefilesPayload",
+      "$ref": "#/$defs/GetSessionPayload",
       "description": "Request payload"
     },
     "timestamp": {
@@ -223,7 +167,7 @@ Request to list casefiles.
     "user_id",
     "payload"
   ],
-  "title": "ListCasefilesRequest",
+  "title": "GetSessionRequest",
   "type": "object"
 }
 ```

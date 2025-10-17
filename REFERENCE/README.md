@@ -1,6 +1,6 @@
 # REFERENCE - Knowledge Base
 
-**Last updated:** 2025-10-16
+**Last updated:** 2025-10-17
 
 ## Purpose
 
@@ -26,6 +26,8 @@ Domain expertise organized by area:
 Complete system architecture and documentation:
 - **architecture/** - Service overviews, system architecture documents
 - **guides/** - Request flows, token schemas, integration patterns, best practices
+  - **20251016_user_manual.md** - ⭐ **PRIMARY MANUAL** - Data-first AI architecture guide (updated 2025-10-17)
+  - Covers: Two-repository architecture, session design, RAR pattern, validation framework, test suite architecture
 - **registry/** - Registry consolidation analysis and summaries
 - **specifications/** - MVP specs, toolset coverage documentation
 - **model-docs/** - Auto-generated Pydantic model documentation (37 models) ✅
@@ -44,25 +46,49 @@ Complete system architecture and documentation:
 - Best practices, solutions catalog, implementation guides
 - Engineering patterns (MLOps, model tuning, schema evolution)
 
+## Quick Start
+
+**New to the project?** Read these in order:
+1. **SYSTEM/guides/20251016_user_manual.md** - Complete system architecture and philosophy
+2. **SUBJECTS/shared-patterns/** - Reusable code patterns (Pydantic types, validators)
+3. **SYSTEM/model-docs/** - Auto-generated model documentation
+
+**For AI assistants:** Primary reference is `SYSTEM/guides/20251016_user_manual.md` for system context and architectural decisions.
+
 ## Workflow
 
 1. **Research** → Explore in WORKSPACE/, take field notes in FIELDNOTES.md
 2. **Experiment** → Validate concepts in WORKSPACE/experiments/
 3. **Draft** → Structure findings in WORKSPACE/drafts/
-4. **Publish** → Move validated knowledge here to SUBJECTS/
+4. **Publish** → Move validated knowledge here to SUBJECTS/ or SYSTEM/
 5. **Update** → Keep this README synchronized with folder structure
+
+## Recent Updates
+
+**2025-10-17:**
+- Removed tool-engineering-workflow.md from SUBJECTS/ (consolidated into user manual)
+- Updated user manual with test suite architecture section (Section 14)
+- Documented pytest 8.x import resolution discovery (no `__init__.py` in test dirs)
+- Updated test counts: 179 unit tests (all passing), 34 integration tests
+- Fixed import patterns throughout codebase (removed "from src." pattern)
+- Added Quick Start section pointing to primary manual
+
+**2025-10-16:**
+- Added 20251016_user_manual.md covering complete data-first AI architecture
+- Documented two-repository architecture, session design, RAR pattern
+- Added validation framework documentation with 30 custom types, 12 validators
+- Covered ADK experiment findings and strategic decisions
 
 ## Maintenance
 
 **Update this README when:**
-- Adding new subject areas
+- Adding new subject areas or major documents
 - Restructuring hierarchy
 - Moving content between sections
-- Adding major reference documents
 - Changing folder structure
-- Updating knowledge base vision
+- Major updates to primary documents (user manual, guides)
 
 **Date stamp protocol:**
-- Update date when changing structure
-- Major content reorganization requires date update
-- Keep synchronized with folder structure
+- Update date when changing structure or adding major content
+- Document significant updates in Recent Updates section
+- Keep synchronized with actual folder structure

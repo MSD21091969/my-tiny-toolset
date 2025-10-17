@@ -1,8 +1,8 @@
 # User Manual: Building AI Systems with Data-First Architecture
 
-**Date:** 2025-10-16  
-**Context:** Post-ADK experiment validation session  
-**Author:** Session with MSD21091969
+**Date:** 2025-10-17  
+**Context:** Post-test suite validation and cleanup  
+**Author:** Sessions with MSD21091969
 
 ---
 
@@ -284,18 +284,29 @@ python scripts/validate_parameter_mappings.py --verbose
 - Generic type detection working (list[str] → array)
 
 ### Test Suites
+
+**Current Status (2025-10-17):**
+- ✅ **Unit Tests:** 179 passed, 0 warnings, 0 failures (2.76s)
+- ⚠️ **Integration Tests:** 11 passed, 18 skipped, 5 failed (tool registry issues - expected)
+
 ```powershell
-# All tests (263 total)
-python -m pytest tests/ -v
+# All unit tests (179 total)
+pytest tests/unit/ -v
 
-# Pydantic tests (126 tests)
-python -m pytest tests/pydantic_models/ -v
+# All integration tests (34 total)
+pytest tests/integration/ -v
 
-# Registry tests (43 tests)
-python -m pytest tests/registry/ -v
+# By category
+pytest tests/unit/pydantic_models/ -v      # Model validation tests
+pytest tests/unit/registry/ -v             # Registry loader/validator tests
+pytest tests/unit/coreservice/ -v          # Core service tests
+pytest tests/unit/casefileservice/ -v      # Repository tests
 
-# Integration tests (104 tests)
-python -m pytest tests/integration/ -v
+# With coverage
+pytest --cov=src --cov-report=html
+
+# Quiet mode (summary only)
+pytest tests/unit/ -q
 ```
 
 ### VS Code Tasks
@@ -463,10 +474,10 @@ $env:MY_TOOLSET = "C:\Users\HP\my-tiny-toolset\TOOLSET"
 
 **Every new session:**
 1. Set toolset environment: `$env:MY_TOOLSET = "C:\Users\HP\my-tiny-toolset\TOOLSET"`
-2. Check Git branch: `git status` (should be on `feature/develop`)
+2. Check Git branch: `git status` (current work on `main`)
 3. Read system state: Open `ROUNDTRIP_ANALYSIS.md` for current progress
 4. Validate registries: Run task "Validate Registries" OR `python scripts/validate_registries.py --strict`
-5. Run test suite: Run task "Run Tests" OR `python -m pytest tests/ -v` (expect 263/263 passing)
+5. Run test suite: Run task "Run Tests" OR `pytest tests/unit/ -q` (expect 179/179 passing)
 6. Review tasks: Check `.vscode/tasks.json` for available tasks
 
 ### Key Documents
@@ -491,12 +502,12 @@ python scripts/validate_registries.py --strict --verbose
 python scripts/validate_parameter_mappings.py --verbose
 
 # Testing
-python -m pytest tests/ -v                          # All tests (263)
-python -m pytest tests/pydantic_models/ -v          # Pydantic tests (126)
-python -m pytest tests/registry/ -v                 # Registry tests (43)
-python -m pytest tests/integration/ -v              # Integration tests (104)
+pytest tests/unit/ -v                      # Unit tests (179)
+pytest tests/integration/ -v               # Integration tests (34)
+pytest tests/unit/ -q                      # Quick summary (no verbose)
+pytest --cov=src --cov-report=html         # With coverage
 
-# Code Analysis
+# Code Analysis (from application directory)
 python $env:MY_TOOLSET\analysis-tools\code_analyzer.py . --json
 python $env:MY_TOOLSET\analysis-tools\version_tracker.py . --version 1.0.0
 python $env:MY_TOOLSET\analysis-tools\mapping_analyzer.py . --html
@@ -518,4 +529,73 @@ You built a **validated data platform** that happens to execute tools. The sessi
 
 ---
 
-**Last Updated:** 2025-10-16
+## 14. Test Suite Architecture (2025-10-17 Update)
+
+### Critical Discovery: Test Directory Structure
+
+**Problem:** Pytest 8.x had import issues despite correct package installation and imports working from Python CLI.
+
+**Root Cause:** Test directories with `__init__.py` files caused pytest to treat test directories as Python packages matching source code structure. This created namespace confusion where pytest tried importing `casefileservice.test_memory_repository` instead of importing from the installed `casefileservice` package.
+
+**Solution:** **Test directories must NOT have `__init__.py` files** when using `package-dir = {"": "src"}` in `pyproject.toml`.
+
+### Fixed Import Pattern
+
+```python
+# ✅ Correct (after fix)
+from casefileservice.repository import CasefileRepository
+from pydantic_models.base.types import RequestStatus
+
+# ❌ Wrong (caused circular imports)
+from src.casefileservice.repository import CasefileRepository
+```
+
+**Files Fixed:**
+- Removed 3 test directory `__init__.py` files
+- Fixed 81 "from src." import statements (77 in source + 4 in tests)
+- Renamed `test_validators.py` → `test_registry_validators.py` (filename collision)
+- Fixed 3 `datetime.utcnow()` deprecations → `datetime.now(UTC)`
+- Fixed 8 test return value warnings (changed `return True` to `assert`)
+
+### Test Organization
+
+```
+tests/
+├── conftest.py              # Root pytest configuration (KEEP)
+├── unit/                    # 179 tests, all passing ✅
+│   ├── casefileservice/     # NO __init__.py
+│   ├── coreservice/         # NO __init__.py
+│   ├── pydantic_models/     # NO __init__.py
+│   └── registry/            # NO __init__.py
+├── integration/             # 34 tests (11 pass, 18 skip, 5 fail)
+│   ├── conftest.py          # Integration fixtures (KEEP)
+│   └── test_*.py            # Core test suites
+└── fixtures/                # Test data
+
+**Rule:** Tests are NOT packages—they import from the installed package.
+```
+
+### Pytest Configuration
+
+**Root `conftest.py` (essential):**
+```python
+def pytest_load_initial_conftests(early_config, parser, args):
+    """Ensure src/ is in sys.path before test collection."""
+    project_root = Path(__file__).parent
+    src_path = project_root / "src"
+    if str(src_path) not in sys.path:
+        sys.path.insert(0, str(src_path))
+```
+
+**Why this hook:** Runs early enough to fix imports for pytest 8.x's assertion rewriting phase.
+
+### Lessons Learned
+
+1. **Empty `__init__.py` files are not harmless** - They change how pytest interprets directory structure
+2. **Pytest 8.x requires early sys.path setup** - Use `pytest_load_initial_conftests` hook
+3. **Test filename uniqueness matters** - Two `test_validators.py` in different directories caused import conflicts
+4. **Import consistency is critical** - Mix of "from src." and direct imports created circular dependencies
+
+---
+
+**Last Updated:** 2025-10-17

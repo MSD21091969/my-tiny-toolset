@@ -1,6 +1,6 @@
 # Subject Areas
 
-**Last updated:** 2025-10-16
+**Last updated:** 2025-10-17
 
 This directory organizes knowledge by domain expertise areas.
 
@@ -8,7 +8,6 @@ This directory organizes knowledge by domain expertise areas.
 
 | Subject | Focus | Key Tools/Patterns |
 |---------|-------|-------------------|
-| **[tool-engineering-workflow.md](tool-engineering-workflow.md)** | AI + Human Collaboration | Tool design Q&A, implementation workflow ✅ |
 | **[shared-patterns/](shared-patterns/)** | Reusable Code Patterns | Pydantic types, validators, utilities ✅ |
 | **[data-engineering/](data-engineering/)** | ETL, Schema Evolution | Airflow, dbt, Great Expectations |
 | **[knowledge-graphs/](knowledge-graphs/)** | Entity Relations, RAG | Neo4j, NetworkX, LangChain |

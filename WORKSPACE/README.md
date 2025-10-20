@@ -1,15 +1,16 @@
 # Research Workspace
 
-**Last updated:** 2025-10-17
+**Last updated:** 2025-10-21
 
 Personal research area for exploring subjects, testing ideas, and developing knowledge.
 
 ## Current Contents
 
 - `FIELDNOTES.md` - Ongoing research findings, domain references, workflow commands
-- `20251016_user_manual.md` - Data-first AI architecture documentation
 - Session reports and development progress tracking
 - ADK experiment findings and architectural validation
+
+**Note:** Architecture analysis moved to application repo (`my-tiny-data-collider/docs/ARCHITECTURE_ORCHESTRATION.md`) - architecture concerns belong with the codebase being architected.
 
 ## Structure
 

@@ -69,6 +69,11 @@ Complete system architecture and documentation:
 
 ## Recent Updates
 
+**2025-10-21:**
+- Moved architecture analysis to application repo (ARCHITECTURE_REORGANIZATION.md → my-tiny-data-collider/docs/ARCHITECTURE_ORCHESTRATION.md)
+- Architecture concerns now live with the codebase being architected
+- Consolidated orchestration strategy: orchestrationservice/ and methodregistryservice/ proposals
+
 **2025-10-17:**
 - **Systematized model documentation** - Reorganized model-docs README with architecture layers
   - Added model statistics: 37 documented / 78 total models

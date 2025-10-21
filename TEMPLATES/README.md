@@ -1,6 +1,6 @@
 # TEMPLATES - Project Templates
 
-**Last updated:** 2025-10-16
+**Last updated:** 2025-10-21
 
 ## Purpose
 

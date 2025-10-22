@@ -1,32 +1,33 @@
 # AI Instructions - Toolset Repository
 
-**Last Updated:** 2025-10-17
+**Last Updated:** 2025-10-22
 
 ## 1. What is "my-tiny-toolset"
 
 **What:**
-- Analysis toolset for Python code inspection (models, functions, endpoints, relationships)
-- Four core tools: version_tracker, code_analyzer, mapping_analyzer, excel_exporter
+- Meta-analysis toolset for Python code inspection (models, functions, endpoints, relationships)
+- Four categories: 4 analysis tools, 7 workflow tools, 6 documentation tools, 4 validation tools (17 total)
 - Outputs: JSON, YAML, CSV, Excel, HTML reports for documentation and CI/CD integration
+- Knowledge base: Architecture, science, engineering, patterns, best practices
 
 **Who:**
 - Used by: AI coding assistants (Copilot, agents), developers, CI/CD pipelines
 - Maintained by: MSD21091969
-- Consumers: Application repositories that need code structure analysis
+- Consumers: Application repositories (like my-tiny-data-collider) that need code structure analysis
 
 **Where:**
 - GitHub: https://github.com/MSD21091969/my-tiny-toolset.git
 - Cloud deployment: Clone from Git when needed, local clone optional for speed
-- Tools location: `TOOLSET/*.py` (executable Python scripts)
+- Tools location: `TOOLSET/*.py` (executable Python scripts in 4 category folders)
 - Knowledge base structure:
-  1. `TOOLSET/` - Analysis tools (Python scripts, batch wrappers)
+  1. `TOOLSET/` - 17 analysis/documentation tools (analysis, workflow, documentation, validation)
   2. `REFERENCE/` - Knowledge base (science, engineering, architecture, guides, best practices)
   3. `WORKSPACE/` - Research sandbox (field notes, experiments, drafts)
   4. `CONFIGS/` - Configuration templates and examples
   5. `PROMPTS/` - AI prompt collections (submodules: awesome-prompts, edu-prompts)
   6. `SCHEMAS/` - JSON/YAML schemas (submodule: schemastore)
   7. `TEMPLATES/` - Project templates and boilerplates (app-integration, cookiecutter)
-  8. `EXAMPLES/` - Code examples and references (submodule: public-apis)
+  8. `EXAMPLES/` - Code examples and references (submodule: public-apis, pydantic-ai-patterns)
 - **Each capital folder MUST have dated `README.md`** with curated index/pointers
 - Submodules contain external knowledge (folder README points to relevant sections)
 - See section 6 "Capital Folders Reference" for detailed structure
@@ -63,19 +64,21 @@
 
 ---
 
-## 3. Tool Inventory
+## 3. Tool Inventory (Updated Oct 22)
 
-**Total:** 17 tools organized in 3 categories
+**Total:** 17 tools organized in 4 categories
 
-### Code Analysis Tools (4) - `TOOLSET/analysis-tools/`
+### Analysis Tools (4) - `TOOLSET/analysis-tools/`
 | Tool | Purpose | Outputs |
-|------|---------|---------||
+|------|---------|---------| 
 | `version_tracker.py` | Full analysis + Git history | JSON, YAML, HTML |
 | `code_analyzer.py` | Quick structure analysis | CSV, JSON, Excel |
 | `mapping_analyzer.py` | Relationship mapping | JSON, HTML dashboard |
 | `excel_exporter.py` | Report generation | XLSX (5 sheets) |
 
-### Workflow Composition Tools (7) - `TOOLSET/workflow-tools/`
+**Batch wrappers:** `.bat` files for Windows command line
+
+### Workflow Tools (7) - `TOOLSET/workflow-tools/`
 | Tool | Purpose | Typical Use |
 |------|---------|-------------|
 | `method_search.py` | Method discovery | Find methods by domain/capability |
@@ -93,8 +96,16 @@
 | `deprecated_fields.py` | Deprecation tracking | Migration planning |
 | `response_variations.py` | Response variants | API variant design |
 | `schema_validator.py` | Schema validation | Test schema correctness |
-| `model_docs_generator.py` | Model documentation | Auto-generate docs |
+| `model_docs_generator.py` | Model documentation | Auto-generate docs (121 models) |
 | `field_usage_analyzer.py` | Field analytics | Find unused fields |
+
+### Validation Tools (4) - `TOOLSET/validation-tools/` (NEW - Phase 9)
+| Tool | Purpose | Output |
+|------|---------|--------|
+| `model_spec_extractor.py` | Extract field specs from Pydantic models | models_specification_v1.yaml |
+| `methods_inventory_validator.py` | Validate inventory vs MANAGED_METHODS + service_module_map | Report |
+| `drift_detector.py` | CI/CD drift detection with severity scoring | Report + JSON |
+| `methodtools_validator.py` | Validate tool YAMLs against inventory | Report |
 
 **Usage from application repos:**
 ```powershell
@@ -104,6 +115,9 @@ python $env:MY_TOOLSET\analysis-tools\version_tracker.py . --version 1.0.0 --jso
 # Workflow tools (requires $env:COLLIDER_PATH)
 $env:COLLIDER_PATH = "C:\path\to\application"
 python $env:MY_TOOLSET\workflow-tools\method_search.py "gmail"
+
+# Validation tools (CI/CD integration)
+python $env:MY_TOOLSET\validation-tools\drift_detector.py --inventory config/methods_inventory_v1.yaml
 ```
 
 **Output location:**
@@ -182,11 +196,12 @@ python $env:MY_TOOLSET\workflow-tools\method_search.py "gmail"
 - `SUBJECTS/` - Domain expertise areas (data-engineering, mlops, api-design, etc.)
   - `shared-patterns/` - Reusable code patterns (Pydantic types, validators, utilities)
 - `SYSTEM/` - Complete system architecture documentation
-  - `architecture/` - Service overviews, system architecture
+  - `architecture/` - Service overviews, system architecture (11 service docs)
   - `guides/` - Request flow, token schemas
   - `registry/` - Registry consolidation analysis
   - `specifications/` - MVP specs, toolset coverage
-  - `model-docs/` - Auto-generated Pydantic model documentation (37 models)
+  - `model-docs/` - Auto-generated Pydantic model documentation (121 models)
+  - `versioning/` - Version strategy, v1 baseline, classification taxonomy (NEW Phase 9)
 
 **Knowledge Base Scope:**
 - RAG optimization patterns and agent tool combinations
@@ -256,10 +271,11 @@ python $env:MY_TOOLSET\workflow-tools\method_search.py "gmail"
 **Purpose:** Boilerplate code and integration templates  
 **Contents:**
 - `app-integration/` - Templates for integrating toolset into app repos
-  - `copilot-instructions-template.md`
-  - `tasks-template.json`
-  - `gitignore-additions.txt`
+  - `copilot-instructions-template.md` - AI session instructions template
+  - `tasks-template.json` - VS Code tasks for running analysis
+  - `gitignore-additions.txt` - Tool output exclusions
 - `cookiecutter/` - Project scaffolding templates (submodule)
+- `integration-patterns/` - SDK integration patterns
 
 **README.md:** Template inventory, usage instructions, integration guide  
 **Update when:** Adding templates, changing integration process  
@@ -269,8 +285,9 @@ python $env:MY_TOOLSET\workflow-tools\method_search.py "gmail"
 
 ### EXAMPLES/ - Code Examples
 **Purpose:** Reference implementations and patterns  
-**Submodule:**
-- `public-apis/` - Public API examples and patterns
+**Contents:**
+- `public-apis/` - Public API examples and patterns (submodule)
+- `pydantic-ai-patterns/` - PydanticAI integration patterns (3 examples + README)
 
 **README.md:** Example catalog, usage patterns, integration examples  
 **Update when:** Adding examples, documenting patterns  
@@ -304,6 +321,17 @@ python $env:MY_TOOLSET\workflow-tools\method_search.py "gmail"
 - Update date when changing structure or adding/removing content
 - Small edits to existing content: optional date update
 - Major reorganization: MUST update date
+
+---
+
+### EXAMPLES/ - Code Examples
+**Purpose:** Reference implementations and patterns  
+**Submodule:**
+- `public-apis/` - Public API examples and patterns
+
+**README.md:** Example catalog, usage patterns, integration examples  
+**Update when:** Adding examples, documenting patterns  
+**Maintenance:** Cross-reference examples in REFERENCE/SUBJECTS/
 
 ---
 

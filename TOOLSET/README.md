@@ -2,9 +2,9 @@
 
 Analysis and workflow tools for Python code inspection and FastAPI development.
 
-**Last updated:** 2025-10-21  
-**Total Tools:** 17 (4 code analysis + 7 workflow + 6 documentation)  
-**Organization:** Tools organized in 3 category folders
+**Last updated:** 2025-10-22  
+**Total Tools:** 21 (4 code analysis + 7 workflow + 6 documentation + 4 validation)  
+**Organization:** Tools organized in 4 category folders
 
 ## Tool Categories
 
@@ -122,7 +122,34 @@ python deprecated_fields.py --list
 python deprecated_fields.py --report
 ```
 
-### 4. Integration Templates
+### 4. Validation Tools (`validation-tools/`)
+Validate methods_inventory against code, detect drift, validate tool YAMLs (Phase 9 - v1 Baseline).
+
+| Tool | Purpose | Typical Use |
+|------|---------|-------------|
+| `model_spec_extractor.py` | Extract field specs from models | Generate models_specification_v1.yaml |
+| `methods_inventory_validator.py` | Validate inventory vs code | Check MANAGED_METHODS + service_module_map |
+| `drift_detector.py` | Detect inventory drift | CI/CD drift checks, maintenance |
+| `methodtools_validator.py` | Validate tool YAMLs | Ensure tools reference valid methods |
+
+**Usage:**
+```powershell
+cd $env:MY_TOOLSET\validation-tools
+
+# Extract model specs
+python model_spec_extractor.py --output models_specification_v1.yaml
+
+# Validate inventory
+python methods_inventory_validator.py --inventory path/to/methods_inventory_v1.yaml
+
+# Check drift (CI/CD mode)
+python drift_detector.py --inventory path/to/inventory.yaml --ci-mode
+
+# Validate tools
+python methodtools_validator.py --inventory inventory.yaml --tools path/to/methodtools_v1/
+```
+
+### 5. Integration Templates
 - `integration-templates/` - Templates for integrating toolset into application repos
   - `copilot-instructions-template.md`
   - `tasks-template.json`

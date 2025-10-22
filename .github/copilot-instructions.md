@@ -6,7 +6,7 @@
 
 **What:**
 - Meta-analysis toolset for Python code inspection (models, functions, endpoints, relationships)
-- Four categories: 4 analysis tools, 7 workflow tools, 6 documentation tools, 4 validation tools (17 total)
+- 13 analysis, workflow, and documentation tools
 - Outputs: JSON, YAML, CSV, Excel, HTML reports for documentation and CI/CD integration
 - Knowledge base: Architecture, science, engineering, patterns, best practices
 
@@ -17,20 +17,17 @@
 
 **Where:**
 - GitHub: https://github.com/MSD21091969/my-tiny-toolset.git
-- Cloud deployment: Clone from Git when needed, local clone optional for speed
-- Tools location: `TOOLSET/*.py` (executable Python scripts in 4 category folders)
+- Tools location: `TOOLSET/` (executable Python scripts in 3 category folders)
 - Knowledge base structure:
-  1. `TOOLSET/` - 17 analysis/documentation tools (analysis, workflow, documentation, validation)
+  1. `TOOLSET/` - 13 analysis/documentation/workflow tools
   2. `REFERENCE/` - Knowledge base (science, engineering, architecture, guides, best practices)
   3. `WORKSPACE/` - Research sandbox (field notes, experiments, drafts)
-  4. `CONFIGS/` - Configuration templates and examples
+  4. `CONFIGS/` - Configuration templates
   5. `PROMPTS/` - AI prompt collections (submodules: awesome-prompts, edu-prompts)
   6. `SCHEMAS/` - JSON/YAML schemas (submodule: schemastore)
-  7. `TEMPLATES/` - Project templates and boilerplates (app-integration, cookiecutter)
+  7. `TEMPLATES/` - Project templates and boilerplates
   8. `EXAMPLES/` - Code examples and references (submodule: public-apis, pydantic-ai-patterns)
-- **Each capital folder MUST have dated `README.md`** with curated index/pointers
-- Submodules contain external knowledge (folder README points to relevant sections)
-- See section 6 "Capital Folders Reference" for detailed structure
+- Each capital folder has dated `README.md`
 
 **How:**
 - Application repos reference this toolset via Git clone or direct download
@@ -58,15 +55,12 @@
 - **All README.md files MUST include "Last updated: YYYY-MM-DD" at top**
 - Single source of truth: no duplicate information across files
 - AI should read folder README first, then update it when content changes
-- README structure: Same sections as copilot-instructions.md but more explicit (AI updates these)
-- USERREADME.md: Human-facing project description (do not auto-update)
-- Use TOOLSET/README.md as template for structured, dated documentation
 
 ---
 
 ## 3. Tool Inventory (Updated Oct 22)
 
-**Total:** 17 tools organized in 4 categories
+**Total:** 13 tools implemented (3 categories: analysis, workflow, documentation)
 
 ### Analysis Tools (4) - `TOOLSET/analysis-tools/`
 | Tool | Purpose | Outputs |
@@ -99,13 +93,21 @@
 | `model_docs_generator.py` | Model documentation | Auto-generate docs (121 models) |
 | `field_usage_analyzer.py` | Field analytics | Find unused fields |
 
-### Validation Tools (4) - `TOOLSET/validation-tools/` (NEW - Phase 9)
-| Tool | Purpose | Output |
-|------|---------|--------|
-| `model_spec_extractor.py` | Extract field specs from Pydantic models | models_specification_v1.yaml |
-| `methods_inventory_validator.py` | Validate inventory vs MANAGED_METHODS + service_module_map | Report |
-| `drift_detector.py` | CI/CD drift detection with severity scoring | Report + JSON |
-| `methodtools_validator.py` | Validate tool YAMLs against inventory | Report |
+**Usage from application repos:**
+```powershell
+# Code analysis (no dependencies)
+python $env:MY_TOOLSET\analysis-tools\version_tracker.py . --version 1.0.0 --json
+
+# Workflow tools (requires $env:COLLIDER_PATH)
+$env:COLLIDER_PATH = "C:\path\to\application"
+python $env:MY_TOOLSET\workflow-tools\method_search.py "gmail"
+```
+
+**Output location:**
+- Tools create `.tool-outputs/` in application workspace
+- Structure: `analysis/`, `mappings/`, `docs/`, `excel/`
+- Auto-generates README.md explaining contents
+- Application repos should gitignore: `.tool-outputs/`
 
 **Usage from application repos:**
 ```powershell
@@ -115,9 +117,6 @@ python $env:MY_TOOLSET\analysis-tools\version_tracker.py . --version 1.0.0 --jso
 # Workflow tools (requires $env:COLLIDER_PATH)
 $env:COLLIDER_PATH = "C:\path\to\application"
 python $env:MY_TOOLSET\workflow-tools\method_search.py "gmail"
-
-# Validation tools (CI/CD integration)
-python $env:MY_TOOLSET\validation-tools\drift_detector.py --inventory config/methods_inventory_v1.yaml
 ```
 
 **Output location:**
@@ -141,7 +140,6 @@ python $env:MY_TOOLSET\validation-tools\drift_detector.py --inventory config/met
 2. **Always update folder's `README.md` with new date stamp** if structure changed
 3. Keep folder README current with content changes
 4. Test changes don't break tool integrations
-5. See section 6 for folder-specific maintenance rules
 
 **Document format rules:**
 - No duplicate information across files
@@ -201,7 +199,6 @@ python $env:MY_TOOLSET\validation-tools\drift_detector.py --inventory config/met
   - `registry/` - Registry consolidation analysis
   - `specifications/` - MVP specs, toolset coverage
   - `model-docs/` - Auto-generated Pydantic model documentation (121 models)
-  - `versioning/` - Version strategy, v1 baseline, classification taxonomy (NEW Phase 9)
 
 **Knowledge Base Scope:**
 - RAG optimization patterns and agent tool combinations
@@ -322,18 +319,7 @@ python $env:MY_TOOLSET\validation-tools\drift_detector.py --inventory config/met
 - Small edits to existing content: optional date update
 - Major reorganization: MUST update date
 
----
 
-### EXAMPLES/ - Code Examples
-**Purpose:** Reference implementations and patterns  
-**Submodule:**
-- `public-apis/` - Public API examples and patterns
-
-**README.md:** Example catalog, usage patterns, integration examples  
-**Update when:** Adding examples, documenting patterns  
-**Maintenance:** Cross-reference examples in REFERENCE/SUBJECTS/
-
----
 
 ## 7. Auto-Approved Operations
 
@@ -354,9 +340,3 @@ python $env:MY_TOOLSET\validation-tools\drift_detector.py --inventory config/met
 - Updating integration examples in REFERENCE/ or EXAMPLES/
 
 ---
-
-## 8. Quick Reference
-
-**If user asks to analyze project:** → Wrong repo, open application repo instead  
-**If user asks to improve tool:** → This is correct repo, proceed  
-**If unclear which repo:** → Check for `TOOLSET/` folder presence

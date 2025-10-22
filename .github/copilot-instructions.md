@@ -307,7 +307,27 @@ python $env:MY_TOOLSET\workflow-tools\method_search.py "gmail"
 
 ---
 
-## 7. Quick Reference
+## 7. Auto-Approved Operations
+
+**Analysis Tool Execution** (no ask, proceed directly):
+- Running any TOOLSET analysis scripts with `python TOOLSET/analysis-tools/*.py`
+- Workflow composition and validation tools
+- Documentation generation tools
+- All tool output to `.tool-outputs/`
+
+**Meta-Tool Test Files** (create/run without approval):
+- Test files in TOOLSET for validating tool functionality
+- Diagnostic scripts for tool integration testing
+- Validation scripts checking tool outputs
+
+**Documentation Updates** (no ask, proceed):
+- Updating folder README.md files with `Last updated: YYYY-MM-DD`
+- Adding/removing items from tool inventory table
+- Updating integration examples in REFERENCE/ or EXAMPLES/
+
+---
+
+## 8. Quick Reference
 
 **If user asks to analyze project:** → Wrong repo, open application repo instead  
 **If user asks to improve tool:** → This is correct repo, proceed  

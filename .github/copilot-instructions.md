@@ -1,6 +1,6 @@
 # AI Instructions - Toolset Repository
 
-**Last Updated:** 2025-10-22
+**Last Updated:** 2025-10-23
 
 ## 1. What is "my-tiny-toolset"
 
@@ -9,6 +9,9 @@
 - 13 analysis, workflow, and documentation tools
 - Outputs: JSON, YAML, CSV, Excel, HTML reports for documentation and CI/CD integration
 - Knowledge base: Architecture, science, engineering, patterns, best practices
+
+**External MCP Tools:**
+- **Context7**: Up-to-date library documentation via MCP server (use for framework/library references)
 
 **Who:**
 - Used by: AI coding assistants (Copilot, agents), developers, CI/CD pipelines
